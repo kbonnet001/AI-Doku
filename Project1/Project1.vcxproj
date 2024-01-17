@@ -71,9 +71,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\boklo\OneDrive\Documents\P2I\Git2\aled\Project1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\boklo\OneDrive\Documents\P2I\Git2\aled\Project1\lib;$(LibraryPath)</LibraryPath>
-    <PublicIncludeDirectories>C:\Users\boklo\OneDrive\Documents\P2I\Git2\aled\Project1\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <IncludePath>C:\Users\boklo\OneDrive\Documents\P2I\AI-Doku2\Project1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\boklo\OneDrive\Documents\P2I\AI-Doku2\Project1\lib;$(LibraryPath)</LibraryPath>
+    <PublicIncludeDirectories>C:\Users\boklo\OneDrive\Documents\P2I\AI-Doku2\Project1\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\boklo\OneDrive\Documents\P2I\Git2\aled\Project1\include;$(IncludePath)</IncludePath>
@@ -118,7 +118,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-main-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,7 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="boutonClose.cpp" />
+    <ClCompile Include="case.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bouton.h" />
+    <ClInclude Include="boutonClose.h" />
+    <ClInclude Include="case.h" />
+    <ClInclude Include="main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
