@@ -31,10 +31,25 @@ public:
 	void mettreAJourNote(int k, int i, int j);
 	bool estPresent(vector<int>& vecteur, int k);
 	void voirNoteConsole(int i, int j);
+
+	// Stratégie n°2 : Dernier Chiffre Possible
 	void dernierChiffrePossible(Sudoku& sudoku);
+	bool dernierChiffrePossibleLigne(Sudoku& sudoku);
+	bool dernierChiffrePossibleColonne(Sudoku& sudoku);
+	bool dernierChiffrePossibleCarre(Sudoku& sudoku);
+
+	void actionIA(Sudoku& sudoku);
+
+	void pairesNues(Sudoku& sudoku);
+	bool pairesNuesLigne(Sudoku& sudoku);
+	bool pairesNuesColonne(Sudoku& sudoku);
+	bool pairesNuesCarre(Sudoku& sudoku);
 
 private:
 	vector<int> note[9][9];
+	bool paireLigne[9][9]; // la case vaut true si une paire a déjà été identifiée
+	bool paireColonne[9][9]; // la case vaut true si une paire a déjà été identifiée
+	bool paireCarre[9][9]; // la case vaut true si une paire a déjà été identifiée
 	//Sudoku sudoku;
 
 };

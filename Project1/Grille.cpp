@@ -73,6 +73,7 @@ void Grille::drawBoutonClose(RenderWindow& window)
 
 void Grille::ActionGrille(RenderWindow& window,const::Vector2f& mousePosition)
 {
+
 	// L'action grille est pour jouer en tant qu'utilisateur, ne fait pas intervenir d'IA
 	// Un clique droit a été effectué par l'utilisateur, on cherche à savoir quel bouton a été cliqué
 	if (mousePosition.y > 580 && mousePosition.y < 622)
@@ -158,6 +159,7 @@ void Grille::ActionGrille(RenderWindow& window,const::Vector2f& mousePosition)
 
 void Grille::ActionGrilleIA(RenderWindow& window, const::Vector2f& mousePosition)
 {
+	//Aidoku.actionIA(sudoku);
 	// L'action grille est pour jouer en tant qu'utilisateur, ne fait pas intervenir d'IA
 	// Un clique droit a été effectué par l'utilisateur, on cherche à savoir quel bouton a été cliqué
 	if (mousePosition.y > 580 && mousePosition.y < 622)

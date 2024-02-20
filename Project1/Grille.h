@@ -50,7 +50,7 @@ private:
 
     int valeurClique = 0; // Valeur mémoire du clique
 
-    Sudoku sudoku=Sudoku(3);
+    Sudoku sudoku=Sudoku(7);
     IA Aidoku = IA(sudoku);
 
 

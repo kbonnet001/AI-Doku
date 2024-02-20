@@ -38,6 +38,7 @@ int main()
                 //boutonClose.actionBouton(window, mousePosition);
                 //essaiBouton.actionBouton(window, mousePosition);
                 grilleJeu.ActionGrilleIA(window,mousePosition);
+
                 //for (int i = 0; i < 9; i++)
                 //{
                 //    if (grilleJeu.avoirBoutonEcrire(i).isClicked(mousePosition))
