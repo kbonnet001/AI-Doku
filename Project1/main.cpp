@@ -37,7 +37,7 @@ int main()
                 mousePosition = window.mapPixelToCoords(Mouse::getPosition(window));
                 //boutonClose.actionBouton(window, mousePosition);
                 //essaiBouton.actionBouton(window, mousePosition);
-                grilleJeu.ActionGrilleIA(window,mousePosition);
+                grilleJeu.actionGrille(window,mousePosition);
 
                 //for (int i = 0; i < 9; i++)
                 //{

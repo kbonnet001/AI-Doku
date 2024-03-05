@@ -11,6 +11,9 @@
 #include "Case.h"
 #include "Sudoku.h"
 #include "IA.h"
+#include "IaApparence.h"
+#include "BoutonEffacer.h"
+#include "BoutonValider.h"
 
 using namespace sf;
 using namespace std;
@@ -25,8 +28,13 @@ public:
     void drawGrilleJeu(RenderWindow& window);
     BoutonEcrire avoirBoutonEcrire(int i);
     void drawCase(RenderWindow& window);
-    void ActionGrille(RenderWindow& window,const::Vector2f& mousePosition);
-    void ActionGrilleIA(RenderWindow& window, const::Vector2f& mousePosition);
+    void actionGrille(RenderWindow& window,const::Vector2f& mousePosition);
+    void actionGrilleIA(RenderWindow& window, const::Vector2f& mousePosition);
+    void actionGrilleManuelInitial( const::Vector2f& mousePosition);
+    void actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePosition);
+    void drawBoutonEffacer(RenderWindow& window);
+    void drawBoutonValider(RenderWindow& window);
+    //void drawNotes(RenderWindow& window, Sudoku sudoku, int i, int j);
 
 private:
     
@@ -45,13 +53,26 @@ private:
     Case cases[9][9];
     int caseClique[2]={ -1,-1 }; // coordonnée de la case de la grille cliqué, si il n'y en a pas -1,-1
 
+    // Bouton Effacer
+    BoutonEffacer boutonEffacer;
+
+    // Bouton Valider
+    BoutonValider boutonValider;
+
     //Bouton Close
     BoutonClose boutonQuitter;
 
+    // Boutons d'action
+    bool effacerClique = false; // true si l'utilisateur a cliqué sur le bouton effacer
+    bool noteClique = false; // true si l'utilisateur a cliqué sur le bouton pour prendre des notes
+
     int valeurClique = 0; // Valeur mémoire du clique
 
-    Sudoku sudoku=Sudoku(7);
-    IA Aidoku = IA(sudoku);
+    int niveauGrille = 0;
+    Sudoku sudoku = Sudoku(niveauGrille); // Si 0 demander
+    IA Aidoku=IA(sudoku);
+
+    IaApparence iaDesign=IaApparence();
 
 
 };

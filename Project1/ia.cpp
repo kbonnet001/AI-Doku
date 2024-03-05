@@ -2,9 +2,23 @@
 
 IA::IA(Sudoku& sudoku)
 {
+	if (active == true)
+	{
+		resolution(sudoku);
+	}
 
+}
+
+void IA::changerActivation(bool nouvelleAct)
+{
+	active = nouvelleAct;
+}
+
+void IA::resolution(Sudoku& sudoku)
+{
+	// pour la résolution automatique, sans explication
 	prendreNote(sudoku);
-	for (int i=0;i<9;i++)
+	for (int i = 0; i < 9; i++)
 		for (int j = 0; j < 9; j++)
 		{
 			voirNoteConsole(i, j);
@@ -42,7 +56,13 @@ IA::IA(Sudoku& sudoku)
 	//	i += 1;
 	//}
 	//prendreNote(sudoku);
+}
 
+void IA::resolutionManuelle(Sudoku& sudoku)
+{
+	// résolution pas à pas
+	// utilisé avec actionGrilleManuel
+	prendreNote(sudoku);
 }
 
 void IA::prendreNote(Sudoku& sudoku)
@@ -215,7 +235,7 @@ void IA::mettreAJourNote(int k, int i, int j)
 bool IA::estPresent(vector<int>& vecteur, int k) 
 {
 	// Permet de verifier si un élément k est présent dans un vecteur
-	auto it = std::find(vecteur.begin(), vecteur.end(), k);
+	auto it = find(vecteur.begin(), vecteur.end(), k);
 	return it != vecteur.end(); 
 }
 
@@ -659,3 +679,4 @@ bool IA::pairesNuesCarre(Sudoku& sudoku)
 		}
 	return false;
 }
+

@@ -19,6 +19,21 @@ void Texte::ConfigurationTexte(int police, string ecriture, Vector2f position, R
     CentrerTexte(position, bouton);
 }
 
+//void Texte::ConfigurationTexteNote(int police, string ecriture, Vector2f position)
+//{
+//    // Permet de définir la configuration du texte
+//    // On charge d'abord la font
+//    ChargerFont();
+//    // On configure ensuite le texte
+//    texte.setFont(font);
+//    texte.setCharacterSize(police);
+//    texte.setFillColor(couleur);
+//    texte.setString(ecriture);
+//    texte.setPosition(position.x, position.y);
+//
+//    texte.getString().toAnsiString();
+//}
+
 void Texte::ChargerFont()
 {
     // Permet de charge la font
@@ -46,4 +61,25 @@ void Texte::drawTexte(RenderWindow& window)
 void Texte::changerCouleur(Color nouvelleCouleur)
 {
     couleur = nouvelleCouleur;
+}
+
+string Texte::avoirTexteTest()
+{
+    return texte.getString().toAnsiString();
+}
+
+
+///ahhhhhhhhh
+
+void Texte::ConfigurationTexteNoteLigne(int police, string ecriture, Vector2f position)
+{
+    // Permet de défnir la configuration du texte
+    // On charge d'abord la font
+    ChargerFont();
+    // On configure ensuite le texte
+    texte.setFont(font);
+    texte.setCharacterSize(police);
+    texte.setFillColor(couleur);
+    texte.setString(ecriture);
+    texte.setPosition(position.x, position.y);
 }

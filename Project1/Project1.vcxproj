@@ -142,20 +142,26 @@
     <ClCompile Include="bouton.cpp" />
     <ClCompile Include="boutonClose.cpp" />
     <ClCompile Include="boutonEcrire.cpp" />
+    <ClCompile Include="boutonEffacer.cpp" />
+    <ClCompile Include="boutonValider.cpp" />
     <ClCompile Include="case.cpp" />
     <ClCompile Include="Grille.cpp" />
     <ClCompile Include="ia.cpp" />
+    <ClCompile Include="iaApparence.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sudoku.cpp" />
     <ClCompile Include="texte.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoutonEffacer.h" />
+    <ClInclude Include="BoutonValider.h" />
     <ClInclude Include="IA.h" />
     <ClInclude Include="Bouton.h" />
     <ClInclude Include="BoutonClose.h" />
     <ClInclude Include="BoutonEcrire.h" />
     <ClInclude Include="Case.h" />
     <ClInclude Include="Grille.h" />
+    <ClInclude Include="IaApparence.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Sudoku.h" />
     <ClInclude Include="Texte.h" />

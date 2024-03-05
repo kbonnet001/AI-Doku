@@ -19,6 +19,7 @@ class IA
 {
 public:
 	IA(Sudoku& sudoku);
+	void changerActivation(bool nouvelleAct);
 	void prendreNote(Sudoku& sudoku);
 	void retirerElementVecteur(int k, vector<int>& vecteur);
 	vector<int> regarderLigne(Sudoku& sudoku, int i);
@@ -44,6 +45,9 @@ public:
 	bool pairesNuesLigne(Sudoku& sudoku);
 	bool pairesNuesColonne(Sudoku& sudoku);
 	bool pairesNuesCarre(Sudoku& sudoku);
+	void resolution(Sudoku& sudoku);
+	void resolutionManuelle(Sudoku& sudoku);
+
 
 private:
 	vector<int> note[9][9];
@@ -51,6 +55,7 @@ private:
 	bool paireColonne[9][9]; // la case vaut true si une paire a déjà été identifiée
 	bool paireCarre[9][9]; // la case vaut true si une paire a déjà été identifiée
 	//Sudoku sudoku;
+	bool active; // si faux, pas d'IA
 
 };
 

@@ -2,9 +2,15 @@
 
 Sudoku::Sudoku(int niveau)
 {
-	genererJeu(niveau);
-	copieTableau(jeuInitial, jeuEnCours);
-	
+	if (niveau == 0) // mode manuel
+	{
+		// on ne fait rien pour le moment
+	}
+	else // niveau déjà tout prêt
+	{
+		genererJeu(niveau);
+		copieTableau(jeuInitial, jeuEnCours);
+	}
 }
 
 void Sudoku::genererJeu(int niveau)
@@ -60,6 +66,7 @@ void Sudoku::genererJeu(int niveau)
 
 void Sudoku::copieTableau(int t1[9][9], int t2[9][9])
 {
+	// Permet de copier une tableau, t1 est la ref
 	for (int i=0;i<9;i++)
 		for (int j = 0; j < 9; j++)
 		{
@@ -75,9 +82,27 @@ void Sudoku::ecrire(int k, int i, int j)
 	}
 	else
 	{
-		jeuEnCours[i][ j] = k;
+		jeuEnCours[i][j] = k;
 	}
 
+}
+
+bool Sudoku::estPresent(vector<int>& vecteur, int k)
+{
+	// Permet de verifier si un élément k est présent dans un vecteur
+	auto it = std::find(vecteur.begin(), vecteur.end(), k);
+	return it != vecteur.end();
+}
+
+void Sudoku::ecrireNote(int k, int i, int j)
+{
+	if (estPresent(noteSudoku[i][j], k) == false)
+	{
+		// Si la note qui vient d'être faite n'est pas encore écrite
+		// On l'ajoute et on s'assure que les notes sont bien dans l'ordre croissant
+		noteSudoku[i][j].push_back(k);
+		sort(noteSudoku[i][j].begin(), noteSudoku[i][j].end());
+	}
 }
 
 int Sudoku::avoirJeu(int i, int j )
@@ -109,4 +134,14 @@ bool Sudoku::avoirEtat()
 {
 	mettreAJourEtat();
 	return etat;
+}
+
+vector<int> Sudoku::avoirNoteVecteur(int i, int j)
+{
+	return noteSudoku[i][j];
+}
+
+void Sudoku::creerJeuInitial()
+{
+	copieTableau(jeuEnCours, jeuInitial);
 }
