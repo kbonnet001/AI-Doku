@@ -13,7 +13,7 @@ void BoutonClose::configuration(const::Vector2f& position)
     bouton.setPosition(position);
 
     // On ajoute ensuite le texte du bouton
-    ecriture.ConfigurationTexte(16, "Quitter", position, bouton);
+    ecriture.ConfigurationTexteBouton(16, "Quitter", position, bouton);
 }
 
 void BoutonClose::draw(RenderWindow& window)

@@ -15,7 +15,7 @@ void BoutonValider::configuration(const Vector2f position)
     bouton.setPosition(position);
 
     // Configuration du texte
-    ecriture.ConfigurationTexte(16, "Valider", position, bouton);
+    ecriture.ConfigurationTexteBouton(16, "Valider", position, bouton);
 }
 
 void BoutonValider::draw(RenderWindow& window)

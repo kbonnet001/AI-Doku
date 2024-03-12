@@ -6,6 +6,12 @@ IA::IA(Sudoku& sudoku)
 	{
 		resolution(sudoku);
 	}
+	//else if (active==false && texteInitialise==false)
+	//{
+	//	gestionDialogueIa.ajouterTexteInitial();
+	//	gestionDialogueIa.affichageTest();
+	//	texteInitialise = true;
+	//}
 
 }
 
@@ -60,9 +66,38 @@ void IA::resolution(Sudoku& sudoku)
 
 void IA::resolutionManuelle(Sudoku& sudoku)
 {
+	// Stratégie niv facile
+	if (singletonEvident(sudoku) == true)
+	{
+		// La stratégie a été utilisé
+		gestionDialogueIa.ajouterTexteSingletonEvident();
+		// Mise à jour des notes
+		gestionDialogueIa.ajouterTexteNote(false);
+	}
+
 	// résolution pas à pas
 	// utilisé avec actionGrilleManuel
-	prendreNote(sudoku);
+	//gestionDialogueIa.ajouterTexteInitial();
+
+	// 1e stratégie tjs applicable en début de partie
+	//prendreNote(sudoku);
+	//gestionDialogueIa.ajouterTexteNote(true);
+
+	//do
+	//{
+	//	// Stratégie niv facile
+	//	if (singletonEvident(sudoku) == true)
+	//	{
+	//		// La stratégie a été utilisé
+	//		gestionDialogueIa.ajouterTexteSingletonEvident();
+	//		// Mise à jour des notes
+	//		gestionDialogueIa.ajouterTexteNote(false);
+	//		if (sudoku.avoirEtat() == true)
+	//		{
+	//			break;
+	//		}
+	//	}
+	//} while (sudoku.avoirEtat() == false); // tant que la grille n'est pas complétée
 }
 
 void IA::prendreNote(Sudoku& sudoku)
@@ -175,12 +210,16 @@ void IA::avoirNote(int i, int j)
 	cout<< "" << endl;
 }
 
-void IA::singletonEvident(Sudoku& sudoku)
+bool IA::singletonEvident(Sudoku& sudoku)
 {
 	// Permet de faire la statégie la plus simple : 
 	// Si une case ne contient qu'un seul chiffre en note
-	// Alors c'est que c'est le bon chiffre
+	// Alors c'est le bon chiffre
 	// Il faut alors compléter la grille de sudoku
+
+	// On retourne un bool pour savoir si la stratégie a été utilisée
+
+	bool strategie = false;
 	for (int i=0; i<9;i++)
 		for (int j = 0; j < 9; j++)
 		{
@@ -191,8 +230,10 @@ void IA::singletonEvident(Sudoku& sudoku)
 				sudoku.ecrire(note[i][j][0], i, j);
 				// On met à jour de manière intelligente les notes
 				mettreAJourNote(note[i][j][0], i, j);
+				strategie = true;
 			}
 		}
+	return strategie;
 }
 
 void IA::mettreAJourNote(int k, int i, int j)

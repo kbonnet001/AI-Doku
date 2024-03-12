@@ -15,14 +15,14 @@ void Case::configuration(Vector2f position)
     carre.setPosition(position);
 
     // Permet de mettre le texte de la case
-    ecriture.ConfigurationTexte(16, savoirChiffre(), position, carre);
+    ecriture.ConfigurationTexteBouton(16, savoirChiffre(), position, carre);
 
 }
 
 void Case::configurationNote(Vector2f position)
 {
     // On prépare ensuite l'écriture des notes
-    ecritureNote.ConfigurationTexteNoteLigne(8, savoirTexteNote(), position);
+    ecritureNote.ConfigurationTexte(8, savoirTexteNote(), position);
 
  //   for (int m = 0; m < 3; m++)
  //       for (int n = 0; n < 3; n++)

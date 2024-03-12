@@ -15,7 +15,7 @@ void BoutonEffacer::configuration(const Vector2f position)
     bouton.setPosition(position);
 
     // Configuration du texte
-    ecriture.ConfigurationTexte(16,"Effacer", position, bouton);
+    ecriture.ConfigurationTexteBouton(16,"Effacer", position, bouton);
 }
 
 void BoutonEffacer::draw(RenderWindow& window)

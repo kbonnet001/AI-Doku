@@ -5,7 +5,7 @@ Texte::Texte()
     // Défaut
 }
 
-void Texte::ConfigurationTexte(int police, string ecriture, Vector2f position, RectangleShape bouton)
+void Texte::ConfigurationTexteBouton(int police, string ecriture, Vector2f position, RectangleShape bouton)
 {
     // Permet de défnir la configuration du texte
     // On charge d'abord la font
@@ -68,10 +68,7 @@ string Texte::avoirTexteTest()
     return texte.getString().toAnsiString();
 }
 
-
-///ahhhhhhhhh
-
-void Texte::ConfigurationTexteNoteLigne(int police, string ecriture, Vector2f position)
+void Texte::ConfigurationTexte(int police, string ecriture, Vector2f position)
 {
     // Permet de défnir la configuration du texte
     // On charge d'abord la font
@@ -82,4 +79,9 @@ void Texte::ConfigurationTexteNoteLigne(int police, string ecriture, Vector2f po
     texte.setFillColor(couleur);
     texte.setString(ecriture);
     texte.setPosition(position.x, position.y);
+}
+
+void Texte::nouveauTexte(string nouveauTexte)
+{
+    texte.setString(nouveauTexte);
 }

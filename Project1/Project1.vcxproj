@@ -143,8 +143,10 @@
     <ClCompile Include="boutonClose.cpp" />
     <ClCompile Include="boutonEcrire.cpp" />
     <ClCompile Include="boutonEffacer.cpp" />
+    <ClCompile Include="boutonNavigation.cpp" />
     <ClCompile Include="boutonValider.cpp" />
     <ClCompile Include="case.cpp" />
+    <ClCompile Include="gestionDialogue.cpp" />
     <ClCompile Include="Grille.cpp" />
     <ClCompile Include="ia.cpp" />
     <ClCompile Include="iaApparence.cpp" />
@@ -154,7 +156,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoutonEffacer.h" />
+    <ClInclude Include="BoutonNavigation.h" />
     <ClInclude Include="BoutonValider.h" />
+    <ClInclude Include="GestionDialogue.h" />
     <ClInclude Include="IA.h" />
     <ClInclude Include="Bouton.h" />
     <ClInclude Include="BoutonClose.h" />

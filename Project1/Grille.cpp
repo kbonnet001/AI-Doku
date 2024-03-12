@@ -22,6 +22,7 @@ void Grille::drawStatique(RenderWindow& window)
 	{
 		drawBoutonEffacer(window);
 		drawBoutonValider(window);
+		drawBoutonNav(window);
 	}
 }
 
@@ -95,6 +96,15 @@ void Grille::drawBoutonClose(RenderWindow& window)
 	boutonQuitter.draw(window);
 }
 
+void Grille::drawBoutonNav(RenderWindow& window)
+{
+	boutonSuivant.configuration(Vector2f(232.f, 176.f), EtatBouton::Suivant);
+	boutonSuivant.draw(window);
+
+	boutonPrecedent.configuration(Vector2f(16.f, 176.f), EtatBouton::Precedent);
+	boutonPrecedent.draw(window);
+}
+
 BoutonEcrire Grille::avoirBoutonEcrire(int i)
 {
 	return nums[i];
@@ -138,7 +148,14 @@ void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePo
 	// L'action grille est pour jouer en tant qu'utilisateur, ne fait pas intervenir d'IA
 	if (boutonValider.avoirClique() == false)
 	{
-		actionGrilleManuelInitial(mousePosition);
+		actionGrilleManuelInitial(window, mousePosition);
+		if (boutonValider.avoirClique() == true)
+		{
+			// 1e étape de résolution par l'IA
+			//iaDesign.avoirGestionDialogue().ajouterTexteNote(true);
+			Aidoku.prendreNote(sudoku);
+			
+		}
 	}
 
 	// 1e cas : 
@@ -218,8 +235,9 @@ void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePo
 }
 
 
-void Grille::actionGrilleManuelInitial(const::Vector2f& mousePosition)
+void Grille::actionGrilleManuelInitial(RenderWindow& window, const::Vector2f& mousePosition)
 {
+
 	if (boutonEffacer.boutonClique(mousePosition))
 	{
 		// On a cliqué sur le bouton pour effacer
@@ -244,6 +262,14 @@ void Grille::actionGrilleManuelInitial(const::Vector2f& mousePosition)
 					cases[i][j].changerCouleurTexte(Color::Black);
 				}
 		}
+	}
+	else if (boutonSuivant.boutonClique(mousePosition))
+	{
+		boutonSuivant.actionClique(window, iaDesign);
+	}
+	else if (boutonPrecedent.boutonClique(mousePosition))
+	{
+		boutonPrecedent.actionClique(window, iaDesign);
 	}
 }
 

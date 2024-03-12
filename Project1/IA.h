@@ -8,6 +8,7 @@
 
 
 #include "Sudoku.h"
+#include "GestionDialogue.h"
 
 // Include des objets de l'interface
 
@@ -28,7 +29,7 @@ public:
 	vector<int> compareNotes(vector<int> note1, vector<int> note2);
 	bool chiffrePresentDansLesDeux(vector<int>& vect1, vector<int>& vect2, int chiffre);
 	void avoirNote(int i, int j);
-	void singletonEvident(Sudoku& sudoku);
+	bool singletonEvident(Sudoku& sudoku);
 	void mettreAJourNote(int k, int i, int j);
 	bool estPresent(vector<int>& vecteur, int k);
 	void voirNoteConsole(int i, int j);
@@ -56,6 +57,9 @@ private:
 	bool paireCarre[9][9]; // la case vaut true si une paire a déjà été identifiée
 	//Sudoku sudoku;
 	bool active; // si faux, pas d'IA
+	
+
+	GestionDialogue gestionDialogueIa;
 
 };
 

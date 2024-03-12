@@ -14,6 +14,10 @@
 #include "IaApparence.h"
 #include "BoutonEffacer.h"
 #include "BoutonValider.h"
+#include "BoutonNavigation.h"
+
+//#include "IaApparence.h"
+//#include "GestionDialogue.h"
 
 using namespace sf;
 using namespace std;
@@ -26,11 +30,12 @@ public:
     void drawBoutons(RenderWindow& window);
     void drawBoutonClose(RenderWindow& window);
     void drawGrilleJeu(RenderWindow& window);
+    void drawBoutonNav(RenderWindow& window);
     BoutonEcrire avoirBoutonEcrire(int i);
     void drawCase(RenderWindow& window);
     void actionGrille(RenderWindow& window,const::Vector2f& mousePosition);
     void actionGrilleIA(RenderWindow& window, const::Vector2f& mousePosition);
-    void actionGrilleManuelInitial( const::Vector2f& mousePosition);
+    void actionGrilleManuelInitial(RenderWindow& window, const::Vector2f& mousePosition);
     void actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePosition);
     void drawBoutonEffacer(RenderWindow& window);
     void drawBoutonValider(RenderWindow& window);
@@ -58,6 +63,10 @@ private:
 
     // Bouton Valider
     BoutonValider boutonValider;
+
+    // Bouton Nav
+    BoutonNavigation boutonSuivant;
+    BoutonNavigation boutonPrecedent;
 
     //Bouton Close
     BoutonClose boutonQuitter;

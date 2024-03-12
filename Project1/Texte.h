@@ -13,14 +13,15 @@ class Texte
 public:
 	Texte();
 	void ChargerFont();
-	void ConfigurationTexte( int police, string ecriture, Vector2f position, RectangleShape bouton);
+	void ConfigurationTexteBouton( int police, string ecriture, Vector2f position, RectangleShape bouton);
 	void CentrerTexte(Vector2f position, RectangleShape bouton);
 	void drawTexte(RenderWindow& window);
 	void changerCouleur(Color Nouvellecouleur);
 	//void ConfigurationTexteNote(int police, string ecriture, Vector2f position);
 	string avoirTexteTest();
 
-	void ConfigurationTexteNoteLigne(int police, string ecriture, Vector2f position);
+	void ConfigurationTexte(int police, string ecriture, Vector2f position);
+	void nouveauTexte(string nouveauTexte);
 
 
 private:

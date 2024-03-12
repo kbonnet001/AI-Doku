@@ -16,7 +16,7 @@ void BoutonEcrire::configuration(int i, const Vector2f position)
     bouton.setPosition(position);
 
     // Configuration du texte
-    ecriture.ConfigurationTexte(16, to_string(static_cast<int>(chiffre)), position, bouton);
+    ecriture.ConfigurationTexteBouton(16, to_string(static_cast<int>(chiffre)), position, bouton);
 
 }
 
