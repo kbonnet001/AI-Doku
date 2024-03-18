@@ -61,7 +61,7 @@ string BoutonNavigation::avoirStringEnum()
     }
 }
 
-GestionDialogue BoutonNavigation::avoirGestionDialogueTest()
-{
-    return gestionDialogueBouton;
-}
+//GestionDialogue BoutonNavigation::avoirGestionDialogueTest()
+//{
+//    return gestionDialogueBouton;
+//}

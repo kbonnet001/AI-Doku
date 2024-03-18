@@ -6,13 +6,6 @@ IA::IA(Sudoku& sudoku)
 	{
 		resolution(sudoku);
 	}
-	//else if (active==false && texteInitialise==false)
-	//{
-	//	gestionDialogueIa.ajouterTexteInitial();
-	//	gestionDialogueIa.affichageTest();
-	//	texteInitialise = true;
-	//}
-
 }
 
 void IA::changerActivation(bool nouvelleAct)
@@ -23,7 +16,7 @@ void IA::changerActivation(bool nouvelleAct)
 void IA::resolution(Sudoku& sudoku)
 {
 	// pour la résolution automatique, sans explication
-	prendreNote(sudoku);
+	prendreNote(sudoku, false);
 	for (int i = 0; i < 9; i++)
 		for (int j = 0; j < 9; j++)
 		{
@@ -64,15 +57,14 @@ void IA::resolution(Sudoku& sudoku)
 	//prendreNote(sudoku);
 }
 
-void IA::resolutionManuelle(Sudoku& sudoku)
+EtatDialogue IA::resolutionManuelle(Sudoku& sudoku)
 {
 	// Stratégie niv facile
 	if (singletonEvident(sudoku) == true)
 	{
+		cout << "singleton evident" << endl;
 		// La stratégie a été utilisé
-		gestionDialogueIa.ajouterTexteSingletonEvident();
-		// Mise à jour des notes
-		gestionDialogueIa.ajouterTexteNote(false);
+		return EtatDialogue::SingletonEvident;
 	}
 
 	// résolution pas à pas
@@ -100,7 +92,7 @@ void IA::resolutionManuelle(Sudoku& sudoku)
 	//} while (sudoku.avoirEtat() == false); // tant que la grille n'est pas complétée
 }
 
-void IA::prendreNote(Sudoku& sudoku)
+void IA::prendreNote(Sudoku& sudoku, bool modeManuel)
 {
 	// L'IA ecrit ses premières notes
 	// à utliser seulement au tout début
@@ -119,6 +111,10 @@ void IA::prendreNote(Sudoku& sudoku)
 				cout << " je suis " << i << j << " et ma taille est de " << note[i][j].size() << endl;
 			}
 		}
+	//if (modeManuel == true)
+	//{
+	//	iaApparence.ajouterTexteNote(true);
+	//}
 }
 
 vector<int> IA::regarderLigne(Sudoku& sudoku, int i)
@@ -208,6 +204,16 @@ void IA::avoirNote(int i, int j)
 		std::cout << element << " ";
 	}
 	cout<< "" << endl;
+}
+
+vector<int> IA::avoirVecteurNote(int i, int j)
+{
+	vector<int> vecteurNote = {};
+	for (int element : note[i][j])
+	{
+		vecteurNote.push_back(element);
+	}
+	return vecteurNote;
 }
 
 bool IA::singletonEvident(Sudoku& sudoku)

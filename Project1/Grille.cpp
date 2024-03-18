@@ -58,6 +58,7 @@ void Grille::drawCase(RenderWindow& window)
 			if (cases[i][j].avoirValeur() == 0)
 			{
 				cases[i][j].configurationNote(Vector2f(19 + i * (3 + 33), 235 + j * (3 + 33)));
+				cases[i][j].mettreAJourNoteCase(Aidoku.avoirVecteurNote(i, j));
 			}
 			
 			if (sudoku.verifieSiJeuInital(i, j) == false)
@@ -121,7 +122,17 @@ void Grille::actionGrille(RenderWindow& window, const::Vector2f& mousePosition)
 		//	actionGrilleManuelInitial(window, mousePosition);
 		//}
 		
-		actionGrilleManuel(window, mousePosition);
+		// L'action grille est pour jouer en tant qu'utilisateur, ne fait pas intervenir d'IA
+		if (boutonValider.avoirClique() == false)
+		{
+			actionGrilleManuelInitial(window, mousePosition);
+		}
+		else
+		{
+			actionGrilleManuel(window, mousePosition);
+		}
+		
+		
 	}
 	else // mode auto, test du niv de l'IA
 	{
@@ -145,18 +156,7 @@ void Grille::actionGrilleIA(RenderWindow& window, const::Vector2f& mousePosition
 
 void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePosition)
 {
-	// L'action grille est pour jouer en tant qu'utilisateur, ne fait pas intervenir d'IA
-	if (boutonValider.avoirClique() == false)
-	{
-		actionGrilleManuelInitial(window, mousePosition);
-		if (boutonValider.avoirClique() == true)
-		{
-			// 1e étape de résolution par l'IA
-			//iaDesign.avoirGestionDialogue().ajouterTexteNote(true);
-			Aidoku.prendreNote(sudoku);
-			
-		}
-	}
+
 
 	// 1e cas : 
 	// Un clique gauche a été effectué par l'utilisateur, on cherche à savoir quel bouton a été cliqué
@@ -221,6 +221,32 @@ void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePo
 		// L'utilisateur a cliqué sur le bouton quitter pour fermer la page
 		boutonQuitter.actionClique(window);
 	}
+
+	else if (boutonSuivant.boutonClique(mousePosition))
+	{
+		cout << "yayayaya" << endl;
+		if (iaDesign.savoirSiFinParagraphe() == true)
+		{
+			cout << "omg on est là" << endl;
+			// On est à la fin du paragraphe
+			// Avant de passer à la ligne suivante
+			// ie : le paragraphe suivant qui n'existe pas encore
+			// On va faire la résolution de la prochaine étape par l'ia
+			// Puis changer l'état du dialogue
+			iaDesign.changerEtat(Aidoku.resolutionManuelle(sudoku));
+			//iaDesign.ajouterTexte();
+			// Maintenant on peut ajouter le texte
+			//iaDesign.ajouterTexte();
+			// Le paragraphe suivant a bien été ajouté
+			// On peut passer au paragraphe suivant sans problème
+		}
+		boutonSuivant.actionClique(window, iaDesign);
+	}
+	else if (boutonPrecedent.boutonClique(mousePosition))
+	{
+		boutonPrecedent.actionClique(window, iaDesign);
+	}
+
 	else // si on a cliqué nul part (pour le moment à corriger selon)
 	{
 		cout << "ola macarena" << endl;
@@ -230,15 +256,71 @@ void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePo
 			nums[i].actionClique(window);
 		}
 		boutonEffacer.changerClique(false);
-
 	}
 }
 
 
 void Grille::actionGrilleManuelInitial(RenderWindow& window, const::Vector2f& mousePosition)
 {
+	// 1e cas : 
+	// Un clique gauche a été effectué par l'utilisateur, on cherche à savoir quel bouton a été cliqué
+	if (mousePosition.y > 580 && mousePosition.y < 622)
+	{
+		for (int i = 0; i < 9; i++)
+		{
+			// On a trouvé où on a cliqué
+			if (nums[i].boutonClique(mousePosition) == true)
+			{
+				nums[i].changerClique(true);
+				valeurClique = nums[i].avoirChiffre();
 
-	if (boutonEffacer.boutonClique(mousePosition))
+				if (caseClique[0] != -1)
+				{
+					sudoku.ecrire(nums[i].avoirChiffre(), caseClique[0], caseClique[1]);
+					//cases[caseClique[0]][caseClique[1]].ecrireValeurCase(nums[i].avoirChiffre());
+				}
+			}
+
+			else // on fait en sorte que les autres soit bien faux
+				nums[i].changerClique(false);
+			nums[i].actionClique(window); // On fait l'action du bouton
+		}
+	}
+
+	else if (mousePosition.y > 230 && mousePosition.y < 565)
+	{
+		// Si l'utilisateur a cliqué dans la grille de jeu, on va chercher à savoir dans quelle ligne : 
+		for (int i = 0; i < 9; i++)
+			// On cherche la ligne
+			if ((mousePosition.y >= 235 + i * (33 + 3)) && (mousePosition.y <= 268 + i * (33 + 3)))
+			{
+				// On a trouvé la ligne, cherchons maintenant la case
+				for (int j = 0; j < 9; j++)
+				{
+					if (cases[j][i].boutonClique(mousePosition))
+					{
+						// Retour ----------------
+						cout << "cc je le carré " << i << j << endl;
+						Aidoku.avoirNote(j, i);
+						//------------------------
+
+						if (caseClique[0] != -1)// Si une case était cliquée avant, on la ré initialise
+						{
+							cases[caseClique[0]][caseClique[1]].changerCouleur(Color::White);
+						}
+
+						// On remplace ensuite par la nouvelle case
+						caseClique[0] = j;
+						caseClique[1] = i;
+						cases[caseClique[0]][caseClique[1]].changerCouleur(couleurTurquoiseClair);
+						// lorsque l'on a trouvé le bouton sur lequel l'utilisateur à cliquer, plus besoin de continuer
+						break;
+					}
+				}
+			}
+	}
+
+	else if (boutonEffacer.boutonClique(mousePosition))
 	{
 		// On a cliqué sur le bouton pour effacer
 		boutonEffacer.changerClique(true);
@@ -255,12 +337,26 @@ void Grille::actionGrilleManuelInitial(RenderWindow& window, const::Vector2f& mo
 		if (niveauGrille == 0)
 		{
 			boutonValider.changerClique(true);
+
+			// On fait des changements au niveau de la grille
 			sudoku.creerJeuInitial();
 			for (int i = 0; i < 9; i++)
 				for (int j = 0; j < 9; j++)
 				{
 					cases[i][j].changerCouleurTexte(Color::Black);
 				}
+
+			// On fait des changements avec l'IA
+
+			// 1e étape de résolution par l'IA
+			// iaDesign.avoirGestionDialogue().ajouterTexteNote(true);
+			Aidoku.prendreNote(sudoku, true);
+
+			iaDesign.changerEtat(EtatDialogue::Note);
+			//iaDesign.ajouterTexte();
+			
+			// --> Doit passer au prochain paragraphe
+			iaDesign.paragrapheSuivant();
 		}
 	}
 	else if (boutonSuivant.boutonClique(mousePosition))

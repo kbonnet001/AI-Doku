@@ -8,7 +8,8 @@
 
 
 #include "Sudoku.h"
-#include "GestionDialogue.h"
+//#include "GestionDialogue.h"
+#include "IaApparence.h"
 
 // Include des objets de l'interface
 
@@ -21,7 +22,7 @@ class IA
 public:
 	IA(Sudoku& sudoku);
 	void changerActivation(bool nouvelleAct);
-	void prendreNote(Sudoku& sudoku);
+	void prendreNote(Sudoku& sudoku, bool modeManuel);
 	void retirerElementVecteur(int k, vector<int>& vecteur);
 	vector<int> regarderLigne(Sudoku& sudoku, int i);
 	vector<int> regarderColonne(Sudoku& sudoku, int j);
@@ -33,6 +34,7 @@ public:
 	void mettreAJourNote(int k, int i, int j);
 	bool estPresent(vector<int>& vecteur, int k);
 	void voirNoteConsole(int i, int j);
+	vector<int> avoirVecteurNote(int i, int j);
 
 	// Stratégie n°2 : Dernier Chiffre Possible
 	void dernierChiffrePossible(Sudoku& sudoku);
@@ -47,7 +49,7 @@ public:
 	bool pairesNuesColonne(Sudoku& sudoku);
 	bool pairesNuesCarre(Sudoku& sudoku);
 	void resolution(Sudoku& sudoku);
-	void resolutionManuelle(Sudoku& sudoku);
+	EtatDialogue resolutionManuelle(Sudoku& sudoku);
 
 
 private:
@@ -59,7 +61,9 @@ private:
 	bool active; // si faux, pas d'IA
 	
 
-	GestionDialogue gestionDialogueIa;
+	//GestionDialogue gestionDialogueIa;
+
+	IaApparence iaApparence;
 
 };
 

@@ -21,13 +21,13 @@ public:
     void actionClique(RenderWindow& window, IaApparence& iaApparence);
     bool boutonClique(const sf::Vector2f& position) override;
     string avoirStringEnum();
-    GestionDialogue avoirGestionDialogueTest();
+    //GestionDialogue avoirGestionDialogueTest();
 
 private:
     RectangleShape bouton;
     Texte ecriture;
     EtatBouton etatBouton;
-    GestionDialogue gestionDialogueBouton;
+    //GestionDialogue gestionDialogueBouton;
 };
 
 #endif // BOUTONCLOSE
