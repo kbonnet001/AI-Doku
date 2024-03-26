@@ -19,21 +19,6 @@ void Texte::ConfigurationTexteBouton(int police, string ecriture, Vector2f posit
     CentrerTexte(position, bouton);
 }
 
-//void Texte::ConfigurationTexteNote(int police, string ecriture, Vector2f position)
-//{
-//    // Permet de définir la configuration du texte
-//    // On charge d'abord la font
-//    ChargerFont();
-//    // On configure ensuite le texte
-//    texte.setFont(font);
-//    texte.setCharacterSize(police);
-//    texte.setFillColor(couleur);
-//    texte.setString(ecriture);
-//    texte.setPosition(position.x, position.y);
-//
-//    texte.getString().toAnsiString();
-//}
-
 void Texte::ChargerFont()
 {
     // Permet de charge la font

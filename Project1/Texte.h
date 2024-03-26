@@ -16,10 +16,8 @@ public:
 	void ConfigurationTexteBouton( int police, string ecriture, Vector2f position, RectangleShape bouton);
 	void CentrerTexte(Vector2f position, RectangleShape bouton);
 	void drawTexte(RenderWindow& window);
-	void changerCouleur(Color Nouvellecouleur);
-	//void ConfigurationTexteNote(int police, string ecriture, Vector2f position);
+	void changerCouleur(Color nouvelleCouleur);
 	string avoirTexteTest();
-
 	void ConfigurationTexte(int police, string ecriture, Vector2f position);
 	void nouveauTexte(string nouveauTexte);
 

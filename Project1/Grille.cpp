@@ -116,12 +116,7 @@ BoutonEcrire Grille::avoirBoutonEcrire(int i)
 void Grille::actionGrille(RenderWindow& window, const::Vector2f& mousePosition)
 {
 	if (niveauGrille == 0) // mode manuel
-	{
-		//while (boutonValider.avoirClique() ==false)
-		//{
-		//	actionGrilleManuelInitial(window, mousePosition);
-		//}
-		
+	{	
 		// L'action grille est pour jouer en tant qu'utilisateur, ne fait pas intervenir d'IA
 		if (boutonValider.avoirClique() == false)
 		{

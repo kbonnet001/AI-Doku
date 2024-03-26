@@ -31,15 +31,11 @@ void BoutonNavigation::actionClique(RenderWindow& window, IaApparence& iaApparen
     // Action faite si le bouton est cliqué
     switch (etatBouton) {
     case EtatBouton::Suivant:
-        //gestionDialogueBouton.ligneSuivante();
-        //iaApparence.avoirGestionDialogue().ligneSuivante();
         iaApparence.ligneSuivante();
 
         break;
     case EtatBouton::Precedent:
         iaApparence.lignePrecedente();
-        //gestionDialogueBouton.lignePrecedente();
-        //iaApparence.avoirGestionDialogue().lignePrecedente();
         break;
     }
 }
@@ -60,8 +56,3 @@ string BoutonNavigation::avoirStringEnum()
         break;
     }
 }
-
-//GestionDialogue BoutonNavigation::avoirGestionDialogueTest()
-//{
-//    return gestionDialogueBouton;
-//}

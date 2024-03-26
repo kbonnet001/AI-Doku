@@ -14,9 +14,6 @@ public:
     BoutonValider();
     void draw(RenderWindow& window) override;
     bool boutonClique(const Vector2f& mousePosition) override;
-    //void actionClique(RenderWindow& window);
-    //void actionBouton(RenderWindow& window, Vector2f& mousePosition);
-    //void changerCouleur(Color couleurBouton, Color couleurTexte);
     void configuration(const Vector2f position);
     void changerClique(bool boolClique);
     bool avoirClique();

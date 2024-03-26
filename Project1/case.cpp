@@ -16,36 +16,12 @@ void Case::configuration(Vector2f position)
 
     // Permet de mettre le texte de la case
     ecriture.ConfigurationTexteBouton(16, savoirChiffre(), position, carre);
-
 }
 
 void Case::configurationNote(Vector2f position)
 {
     // On prépare ensuite l'écriture des notes
     ecritureNote.ConfigurationTexte(8, savoirTexteNote(), position);
-
- //   for (int m = 0; m < 3; m++)
- //       for (int n = 0; n < 3; n++)
- //       {
- ///*           if (m == 2 && n == 2)
- //           {
- //               break;
- //           }*/
- //           cout << "--" << endl;
- //           cout << "n = " << n << " et m = " << m << endl;
- //           cout << "k = " << n + 1 + 3 * m << endl;
- //           cout << "donc savoirChiffreNote(n + 1 + 3 * m) = " << savoirChiffreNote(n + 1 + 3 * m) << endl;
- //           cout << "on regarde maintenant la position : " << position.x + 11 * n << " et " << position.y + 11 * m << endl;
- //           ecritureCases[n  + 3 * m].ConfigurationTexteNote(8, "2", Vector2f(position.x + 11 * n, position.y + 11 * m));
- //          
- //           ecritureCases[n + 3 * m].avoirTexteTest();
- //           //
- //           for (int i = 0; i < 9; i++)
- //           {
- //               cout << "on parcourt la liste, i = " << i << endl;
- //               ecritureCases[i].avoirTexteTest();
- //           }
- //       }
 }
 
 void Case::ecrireValeurCase(int chiffre)
@@ -98,12 +74,6 @@ string Case::savoirTexteNote()
     }
         
     return ecriture;
-
-
-
-
-    // test où on s'en fou
-    //return to_string(static_cast<int>(k));
 }
 
 string Case::savoirChiffreNote(int k)
@@ -122,7 +92,6 @@ string Case::savoirChiffreNote(int k)
     {
         return " ";
     }
-
 }
 
 void Case::draw(RenderWindow& window)
