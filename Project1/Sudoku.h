@@ -29,7 +29,7 @@ private:
 	int jeuInitial[9][9]; // sudoku donné au joueur, celle ci ne change pas 
 	int jeuEnCours[9][9]; // sudoku que le joueur change quand il joue
 	int jeuReference[9][9]; // sudoku fini, solution finale que doit atteindre le joueur
-	int niveau; // le niveau de la grille pouvant aller de 1 (facile) à 3 (difficile)
+	int niveau=1; // le niveau de la grille pouvant aller de 1 (facile) à 3 (difficile)
 	bool etat = false;// état de la grille, =true si la grille est complétée
 	vector<int> noteSudoku[9][9];
 

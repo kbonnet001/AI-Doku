@@ -190,13 +190,41 @@ void IaApparence::ajouterTexteNote(bool sansNote /*vector<int> positionCase*/)
 
 void IaApparence::ajouterTexteSingletonEvident()
 {
-    // Texte de base à mettre dans le dialogue de l'IA
-    // A mettre même si l'utilisateur ne souhaite pas lire 
-    // pour pouvoir revenir en arrière au cas où
     nouvelleLigne.clear();
     nouvelleLigne.push_back(formaterLigneTexte("Grâce à ces notes, ont peut ensuite écrire les chiffres des singletons évidents"));
-    nouvelleLigne.push_back(formaterLigneTexte("On met alors à jour les notes."));
+    nouvelleLigne.push_back(formaterLigneTexte("On met alors les notes à jour."));
 
+    ajouterParagraphe(nouvelleLigne);
+}
+
+void IaApparence::ajouterTexteDernierChiffrePossible()
+{
+    nouvelleLigne.clear();
+    nouvelleLigne.push_back(formaterLigneTexte("On peut ensuite utiliser la méthode du dernier chiffre restant"));
+    nouvelleLigne.push_back(formaterLigneTexte("On regarde dans chaque ligne (colonne ou carré) si un chiffre n'apparait qu'une seule fois."));
+    nouvelleLigne.push_back(formaterLigneTexte("Si oui, alors on peut écrire le chiffre dans la case."));
+    nouvelleLigne.push_back(formaterLigneTexte("On met alors les notes à jour."));
+
+    ajouterParagraphe(nouvelleLigne);
+}
+
+void IaApparence::ajouterTextePairesNues()
+{
+    nouvelleLigne.clear();
+    nouvelleLigne.push_back(formaterLigneTexte("On peut ensuite des paires nues."));
+    nouvelleLigne.push_back(formaterLigneTexte("Si on remarque deux paires identiques dans une ligne (colonne ou carré)."));
+    nouvelleLigne.push_back(formaterLigneTexte("Alors on peut supprimer tous les autres chiffres contenues dans les mêmes cases que les paires."));
+    nouvelleLigne.push_back(formaterLigneTexte("Cette méthode ne permet pas d'écrire de chiffre mais elle nous sera bien utile pour la suite !"));
+
+    ajouterParagraphe(nouvelleLigne);
+}
+
+void IaApparence::ajouterTexteFinal()
+{
+    nouvelleLigne.clear();
+    nouvelleLigne.push_back(formaterLigneTexte("Et voilà ! Le sudoku est terminé !"));
+    nouvelleLigne.push_back(formaterLigneTexte("J'espère avoir pu vous aider. À bientôt ! "));
+    
     ajouterParagraphe(nouvelleLigne);
 }
 
@@ -232,6 +260,15 @@ void IaApparence::changerEtat(EtatDialogue nouvelleEtatDialogue)
     case EtatDialogue::SingletonEvident:
         cout << "SingletonEvident" << endl;
         break;
+    case EtatDialogue::DernierChiffrePossible:
+        cout << "dernierchiffre possible" << endl;
+        break;
+    case EtatDialogue::PairesNues:
+        cout << "paire nues" << endl;
+        break;
+    case EtatDialogue::Final:
+        cout << "Final" << endl;
+        break;
     default:
         cout << "Valeur inconnue" << endl;
     }
@@ -249,6 +286,21 @@ void IaApparence::ajouterTexte()
     {
         cout << "ajouter texte singleton evident" << endl;
         ajouterTexteSingletonEvident();
+    }
+    else if (etatDialogue == EtatDialogue::DernierChiffrePossible)
+    {
+        cout << "ajouter dernier chiffre possible" << endl;
+        ajouterTexteDernierChiffrePossible();
+    }
+    else if (etatDialogue== EtatDialogue::PairesNues)
+    {
+        cout << "ajouter paires nues" << endl;
+        ajouterTextePairesNues();
+    }
+    else if (etatDialogue == EtatDialogue::Final)
+    {
+        cout << "ajouter paires nues" << endl;
+        ajouterTexteFinal();
     }
 }
 

@@ -59,37 +59,37 @@ void IA::resolution(Sudoku& sudoku)
 
 EtatDialogue IA::resolutionManuelle(Sudoku& sudoku)
 {
+	if (sudoku.avoirEtat() == true)
+	{
+		// La grille de sudoku est complété, on s'arrete
+		cout << "finiiii" << endl;
+		return EtatDialogue::Final;
+	}
 	// Stratégie niv facile
-	if (singletonEvident(sudoku) == true)
+	else if (singletonEvident(sudoku) == true)
 	{
 		cout << "singleton evident" << endl;
 		// La stratégie a été utilisé
 		return EtatDialogue::SingletonEvident;
 	}
 
-	// résolution pas à pas
-	// utilisé avec actionGrilleManuel
-	//gestionDialogueIa.ajouterTexteInitial();
+	// Sinon, stratégie niv moyen
+	else if (dernierChiffrePossible(sudoku) == true)
+	{
+		cout << "singleton evident" << endl;
+		// La stratégie a été utilisé
+		return EtatDialogue::DernierChiffrePossible;
+	}
 
-	// 1e stratégie tjs applicable en début de partie
-	//prendreNote(sudoku);
-	//gestionDialogueIa.ajouterTexteNote(true);
+	// Sinon, stratégie niv difficile
+	else if (pairesNues(sudoku) == true)
+	{
+		cout << "iaaaaaaaaaaaaaaaaaaaaaaaa" << endl;
+		cout << "paire nues" << endl;
+		// La stratégie a été utilisé
+		return EtatDialogue::PairesNues;
+	}
 
-	//do
-	//{
-	//	// Stratégie niv facile
-	//	if (singletonEvident(sudoku) == true)
-	//	{
-	//		// La stratégie a été utilisé
-	//		gestionDialogueIa.ajouterTexteSingletonEvident();
-	//		// Mise à jour des notes
-	//		gestionDialogueIa.ajouterTexteNote(false);
-	//		if (sudoku.avoirEtat() == true)
-	//		{
-	//			break;
-	//		}
-	//	}
-	//} while (sudoku.avoirEtat() == false); // tant que la grille n'est pas complétée
 }
 
 void IA::prendreNote(Sudoku& sudoku, bool modeManuel)
@@ -435,12 +435,13 @@ bool IA::dernierChiffrePossibleCarre(Sudoku& sudoku)
 	return false;
 }
 
-void IA::dernierChiffrePossible(Sudoku& sudoku)
+bool IA::dernierChiffrePossible(Sudoku& sudoku)
 {
 	// Stratégie n°2 : 
 	// Regarder si sur une ligne, une colonne ou un carré, 
 	// il n'y a qu'un seul emplacement possible pour k
 	bool strategieOk = false; // permet d'indiquer si la strategie a pu etre appliquée
+	bool strategie = false; // pour savoir si la stratégie a été appliqué au moins 1 fois
 
 	// On commence par regarder les lignes
 	do
@@ -449,20 +450,25 @@ void IA::dernierChiffrePossible(Sudoku& sudoku)
 		if (dernierChiffrePossibleLigne(sudoku) == true)
 		{
 			strategieOk = true;
+			strategie = true;
 			break;
 		}
 		if (dernierChiffrePossibleColonne(sudoku) == true)
 		{
 			strategieOk = true;
+			strategie = true;
 			break;
 		}
 		if (dernierChiffrePossibleCarre(sudoku) == true)
 		{
 			strategieOk = true;
+			strategie = true;
 			break;
 		}
 
 	} while (strategieOk == true); // on recommence tant jusqu'à ce que la stratégie ne soit plus applicable nul part
+
+	return strategie;
 }
 	
 
@@ -475,7 +481,7 @@ void IA::actionIA(Sudoku& sudoku)
 	}
 }
 
-void IA::pairesNues(Sudoku& sudoku)
+bool IA::pairesNues(Sudoku& sudoku)
 {
 	// Stratégie n°3 : 
 	// Regarder si sur une ligne, une colonne ou un carré, 
@@ -483,6 +489,7 @@ void IA::pairesNues(Sudoku& sudoku)
 	// Si oui, on regarde les autres chiffres de la ligne, colonne ou carre 
 	// et on supprime les chiffres de la paire
 	bool strategieOk = false; // permet d'indiquer si la strategie a pu etre appliquée
+	bool strategie = false; // permet de savoir si la stratégie a été utilisée au moins 1 fois
 
 	// On commence par regarder les lignes
 	do
@@ -491,20 +498,24 @@ void IA::pairesNues(Sudoku& sudoku)
 		if (pairesNuesLigne(sudoku) == true)
 		{
 			strategieOk = true;
+			strategie = true;
 			break;
 		}
 		if (pairesNuesColonne(sudoku) == true)
 		{
 			strategieOk = true;
+			strategie = true;
 			break;
 		}
 		if (pairesNuesCarre(sudoku) == true)
 		{
 			strategieOk = true;
+			strategie = true;
 			break;
 		}
 
 	} while (strategieOk == true); // on recommence tant jusqu'à ce que la stratégie ne soit plus applicable nul part
+	return strategie;
 }
 
 bool IA::pairesNuesLigne(Sudoku& sudoku)
@@ -515,6 +526,7 @@ bool IA::pairesNuesLigne(Sudoku& sudoku)
 	{
 		for (int j = 0; j < 9; j++)
 		{
+			cout << "on est dans le carre ij = " << i << j << endl;
 			if (sudoku.avoirJeu(i, j) == 0 && note[i][j].size() == 2 && paireLigne[i][j]!=true)
 			{
 				cout << " voici une première paire en ij = " << i << j << " et la paire est : " << note[i][j][0] << note[i][j][1] << endl;

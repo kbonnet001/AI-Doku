@@ -6,6 +6,7 @@
 #include <vector>
 
 // Include des objets de l'interface
+#include "Bouton.h"
 #include "boutonClose.h"
 #include "BoutonEcrire.h"
 #include "Case.h"

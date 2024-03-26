@@ -156,8 +156,6 @@ void Grille::actionGrilleIA(RenderWindow& window, const::Vector2f& mousePosition
 
 void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePosition)
 {
-
-
 	// 1e cas : 
 	// Un clique gauche a été effectué par l'utilisateur, on cherche à savoir quel bouton a été cliqué
 	if (mousePosition.y > 580 && mousePosition.y < 622)
@@ -231,12 +229,11 @@ void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePo
 			// On est à la fin du paragraphe
 			// Avant de passer à la ligne suivante
 			// ie : le paragraphe suivant qui n'existe pas encore
+			// 
 			// On va faire la résolution de la prochaine étape par l'ia
 			// Puis changer l'état du dialogue
 			iaDesign.changerEtat(Aidoku.resolutionManuelle(sudoku));
-			//iaDesign.ajouterTexte();
-			// Maintenant on peut ajouter le texte
-			//iaDesign.ajouterTexte();
+
 			// Le paragraphe suivant a bien été ajouté
 			// On peut passer au paragraphe suivant sans problème
 		}

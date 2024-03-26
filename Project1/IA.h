@@ -37,14 +37,14 @@ public:
 	vector<int> avoirVecteurNote(int i, int j);
 
 	// Stratégie n°2 : Dernier Chiffre Possible
-	void dernierChiffrePossible(Sudoku& sudoku);
+	bool dernierChiffrePossible(Sudoku& sudoku);
 	bool dernierChiffrePossibleLigne(Sudoku& sudoku);
 	bool dernierChiffrePossibleColonne(Sudoku& sudoku);
 	bool dernierChiffrePossibleCarre(Sudoku& sudoku);
 
 	void actionIA(Sudoku& sudoku);
 
-	void pairesNues(Sudoku& sudoku);
+	bool pairesNues(Sudoku& sudoku);
 	bool pairesNuesLigne(Sudoku& sudoku);
 	bool pairesNuesColonne(Sudoku& sudoku);
 	bool pairesNuesCarre(Sudoku& sudoku);

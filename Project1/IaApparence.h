@@ -9,7 +9,7 @@
 #include "Texte.h"
 //#include "GestionDialogue.h"
 
-enum class EtatDialogue { Initial, Note, SingletonEvident };
+enum class EtatDialogue { Initial, Note, SingletonEvident, DernierChiffrePossible, PairesNues, Final};
 // Initial --> Début de la grille, dialogue d'introduction
 // Note --> Prendre des notes la première fois
 // SingletonEvident --> 1e stratégie niv facile
@@ -34,6 +34,7 @@ public:
 	void ligneSuivante();
 	void lignePrecedente();
 	void paragrapheSuivant();
+	void ajouterTextePairesNues();
 
 	void ajouterParagraphe(const vector<string> nouveauParagraphe);
 	void affichageTest(int& paragrapheActuel, int& ligneActuelle);
@@ -46,6 +47,8 @@ public:
 	void changerEtat(EtatDialogue nouvelleEtatDialogue);
 	void ajouterTexte();
 	bool savoirSiFinParagraphe();
+	void ajouterTexteDernierChiffrePossible();
+	void ajouterTexteFinal();
 
 
 private:
