@@ -31,5 +31,6 @@ void BoutonClose::actionClique(RenderWindow& window)
 
 bool BoutonClose::boutonClique(const Vector2f& mousePosition)
 {
+    // Pour savoir si le bouton a été cliqué
     return bouton.getGlobalBounds().contains(mousePosition);
 }

@@ -218,7 +218,7 @@ void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePo
 	else if (boutonSuivant.boutonClique(mousePosition))
 	{
 		cout << "yayayaya" << endl;
-		if (iaDesign.savoirSiFinParagraphe() == true)
+		if (iaDesign.savoirSiFinParagraphe() == true )
 		{
 			cout << "omg on est là" << endl;
 			// On est à la fin du paragraphe

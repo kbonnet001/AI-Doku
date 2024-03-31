@@ -51,9 +51,6 @@
     <ClCompile Include="boutonValider.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="gestionDialogue.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="boutonNavigation.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -93,9 +90,6 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="BoutonValider.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="GestionDialogue.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="BoutonNavigation.h">

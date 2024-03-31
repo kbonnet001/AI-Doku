@@ -19,9 +19,22 @@ void Texte::ConfigurationTexteBouton(int police, string ecriture, Vector2f posit
     CentrerTexte(position, bouton);
 }
 
+void Texte::ConfigurationTexte(int police, string ecriture, Vector2f position)
+{
+    // Permet de défnir la configuration du texte
+    // On charge d'abord la font
+    ChargerFont();
+    // On configure ensuite le texte
+    texte.setFont(font);
+    texte.setCharacterSize(police);
+    texte.setFillColor(couleur);
+    texte.setString(ecriture);
+    texte.setPosition(position.x, position.y);
+}
+
 void Texte::ChargerFont()
 {
-    // Permet de charge la font
+    // Permet de charger la font
     if (!font.loadFromFile("res/Poppins-Regular.ttf"))
     {
         // Gestion de l'erreur si le chargement de la police échoue
@@ -45,25 +58,13 @@ void Texte::drawTexte(RenderWindow& window)
 
 void Texte::changerCouleur(Color nouvelleCouleur)
 {
+    // Pour changer la couleur d'un texte
     couleur = nouvelleCouleur;
 }
 
 string Texte::avoirTexteTest()
 {
     return texte.getString().toAnsiString();
-}
-
-void Texte::ConfigurationTexte(int police, string ecriture, Vector2f position)
-{
-    // Permet de défnir la configuration du texte
-    // On charge d'abord la font
-    ChargerFont();
-    // On configure ensuite le texte
-    texte.setFont(font);
-    texte.setCharacterSize(police);
-    texte.setFillColor(couleur);
-    texte.setString(ecriture);
-    texte.setPosition(position.x, position.y);
 }
 
 void Texte::nouveauTexte(string nouveauTexte)

@@ -5,8 +5,8 @@
 
 
 //// Constantes du programme
-//const int WIN_WIDTH = 800;
-//const int WIN_HEIGHT = 600;
+const int WIN_WIDTH = 360;
+const int WIN_HEIGHT = 800;
 
 // Namespaces
 using namespace sf;

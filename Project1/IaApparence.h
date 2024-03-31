@@ -7,19 +7,18 @@
 #include <vector>
 
 #include "Texte.h"
-//#include "GestionDialogue.h"
 
-enum class EtatDialogue { Initial, Note, SingletonEvident, DernierChiffrePossible, PairesNues, Final};
+enum class EtatDialogue { NiveauFaible, Initial, Note, SingletonEvident, DernierChiffrePossible, PairesNues, Final};
+// NiveauFaible --> L'IA n'a pas utilisé de stratégie, elle ne peut pas terminer la résolution
 // Initial --> Début de la grille, dialogue d'introduction
 // Note --> Prendre des notes la première fois
 // SingletonEvident --> 1e stratégie niv facile
+// PairesNues --> stratégie niv difficile
+// Final --> Sudoku terminé
 
-
-// Include des objets de l'interface
 
 using namespace sf;
 using namespace std;
-//using erase;
 
 class IaApparence
 {
@@ -29,8 +28,6 @@ public:
 	bool loadVideo(string cheminVideo);
 	void dessinerIa(RenderWindow& window);
 	void configurationDialogue();
-	//void miseAJourDialogue();
-	//GestionDialogue avoirGestionDialogue();
 	void ligneSuivante();
 	void lignePrecedente();
 	void paragrapheSuivant();
@@ -49,7 +46,7 @@ public:
 	bool savoirSiFinParagraphe();
 	void ajouterTexteDernierChiffrePossible();
 	void ajouterTexteFinal();
-
+	void ajouterTexteNiveauFaible();
 
 private:
 	Texture texture;
@@ -58,7 +55,6 @@ private:
 	RectangleShape boiteDialogue;
 	Texte ligneDialogue;
 	Color couleurTurquoiseClair = Color(188, 255, 253);
-	//GestionDialogue gestionDialogue;
 	string ligneTexte;
 
 	int paragrapheActuel = 0;
@@ -68,7 +64,8 @@ private:
 	bool initialisation = false;
 	vector<string> nouvelleLigne;
 
-	EtatDialogue etatDialogue = EtatDialogue::Initial;
+	EtatDialogue etatDialogue = EtatDialogue::Initial; // On commence par le dialogue d'introduction
+	bool finDialogue = false; // true si --> Final ou --> Niveau trop faible (pour ne pas avoir une boucle de dialogue infini)
 };
 
 #endif // IAAPPARENCE

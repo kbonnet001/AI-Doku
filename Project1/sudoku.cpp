@@ -15,8 +15,8 @@ Sudoku::Sudoku(int niveau)
 
 void Sudoku::genererJeu(int niveau)
 {
-	// à terme, génération automatique de grille de sudoku
-	// Pour le moment, on va faire plus simple et donner dirrectement un tableau de jeu
+	// à terme, génération automatique de grille de sudoku (perspective du projet)
+	// Pour le moment, on va faire plus simple et donner directement un tableau de jeu
 	if (niveau == 1) // très facile
 	{
 		 int grille[9][9] = {{3, 4, 0, 2, 0, 9, 5, 6, 1}, {9,0,6,5,1,4,0,3,2}, {1,2,0,8,3,0,7,4,9}, {0,5,3,6,2,1,9,0,4}, {0,8,2,0,9,7,0,5,3}, {4,9,0,3,8,5,2,7,0}, {2,0,4,1,0,0,3,9,0}, {8,1,7,0,6,3,4,2,5}, {5,0,9,7,4,2,0,1,8}};
@@ -60,8 +60,6 @@ void Sudoku::genererJeu(int niveau)
 		int grille[9][9] = { {0,8,0,3,7,0,0,0,0}, {0,0,3,0,0,0,0,0,0}, {0,0,7,0,4,0,2,0,0}, {1,0,0,0,0,0,0,0,8}, {0,0,0,0,0,0,4,3,7}, {8,0,9,0,0,0,0,0,2}, {0,0,0,8,0,0,6,0,0}, {5,6,0,0,0,9,0,0,0}, {0,0,0,0,0,2,0,4,0} };
 		copieTableau(grille, jeuInitial);
 	}
-
-
 }
 
 void Sudoku::copieTableau(int t1[9][9], int t2[9][9])
@@ -76,6 +74,8 @@ void Sudoku::copieTableau(int t1[9][9], int t2[9][9])
 
 void Sudoku::ecrire(int k, int i, int j)
 {
+	// Permet d'écire dans le sudoku
+	// On ne peut pas écrire dans une case de la grille initial
 	if (jeuInitial[i][j] != 0)
 	{
 		cerr << "Vous ne pouvez pas écrire dans cette case"<< jeuInitial[i][j] << endl;
@@ -117,6 +117,8 @@ bool Sudoku::verifieSiJeuInital(int i, int j)
 
 void Sudoku::mettreAJourEtat()
 {
+	// Permet de savoir l'état de la grille
+	// Si on trouve une case vide, alors le jeu n'est pas terminé
 	bool etatActuel = true;
 	for (int i=0;i<9;i++)
 		for (int j = 0; j < 9; j++)
@@ -143,5 +145,7 @@ vector<int> Sudoku::avoirNoteVecteur(int i, int j)
 
 void Sudoku::creerJeuInitial()
 {
+	// Permet d'enregistrer une grille entré par l'utilisateur 
+	// en tant que grille initial
 	copieTableau(jeuEnCours, jeuInitial);
 }

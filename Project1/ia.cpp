@@ -13,6 +13,8 @@ void IA::changerActivation(bool nouvelleAct)
 	active = nouvelleAct;
 }
 
+// -------------- RESOLUTIONS --------------
+
 void IA::resolution(Sudoku& sudoku)
 {
 	// pour la résolution automatique, sans explication
@@ -40,6 +42,8 @@ void IA::resolution(Sudoku& sudoku)
 		pairesNues(sudoku);
 	}
 
+	// A corriger dans perspective projet
+	// Mettre un arret lorsque plus aucune strat n'est utilisée
 	// 
 	//int i = 0;
 	//while (sudoku.avoirEtat() == false)
@@ -59,6 +63,9 @@ void IA::resolution(Sudoku& sudoku)
 
 EtatDialogue IA::resolutionManuelle(Sudoku& sudoku)
 {
+	// Résolution manuelle
+	// On applique les stratégies par ordre croissant de difficulté
+	// On vérifie avant si la grille est entièrement complétée
 	if (sudoku.avoirEtat() == true)
 	{
 		// La grille de sudoku est complété, on s'arrete
@@ -76,7 +83,7 @@ EtatDialogue IA::resolutionManuelle(Sudoku& sudoku)
 	// Sinon, stratégie niv moyen
 	else if (dernierChiffrePossible(sudoku) == true)
 	{
-		cout << "singleton evident" << endl;
+		cout << "dernier chiffre possible" << endl;
 		// La stratégie a été utilisé
 		return EtatDialogue::DernierChiffrePossible;
 	}
@@ -84,13 +91,14 @@ EtatDialogue IA::resolutionManuelle(Sudoku& sudoku)
 	// Sinon, stratégie niv difficile
 	else if (pairesNues(sudoku) == true)
 	{
-		cout << "iaaaaaaaaaaaaaaaaaaaaaaaa" << endl;
 		cout << "paire nues" << endl;
 		// La stratégie a été utilisé
 		return EtatDialogue::PairesNues;
 	}
 
 }
+
+// -------------- PRENDRE DES NOTES --------------
 
 void IA::prendreNote(Sudoku& sudoku, bool modeManuel)
 {
@@ -111,10 +119,6 @@ void IA::prendreNote(Sudoku& sudoku, bool modeManuel)
 				cout << " je suis " << i << j << " et ma taille est de " << note[i][j].size() << endl;
 			}
 		}
-	//if (modeManuel == true)
-	//{
-	//	iaApparence.ajouterTexteNote(true);
-	//}
 }
 
 vector<int> IA::regarderLigne(Sudoku& sudoku, int i)
@@ -169,14 +173,7 @@ vector<int> IA::regarderCarre(Sudoku& sudoku, int i, int j)
 	return noteCarre;
 }
 
-void IA::retirerElementVecteur(int k, vector<int>& vecteur)
-{
-	// Permet de retirer un élément k d'un vecteur
-	auto it = std::find(vecteur.begin(), vecteur.end(), k);
-	if (it != vecteur.end()) {
-		vecteur.erase(it);
-	}
-}
+// -------------- METTRE A JOUR LES NOTES --------------
 
 vector<int> IA::compareNotes(vector<int> note1, vector<int> note2)
 {
@@ -191,30 +188,44 @@ vector<int> IA::compareNotes(vector<int> note1, vector<int> note2)
 	return noteCompare;
 }
 
-bool IA::chiffrePresentDansLesDeux(vector<int>& vect1, vector<int>& vect2, int chiffre)
+void IA::mettreAJourNote(int k, int i, int j)
 {
-	// Permet de savoir si un chiffre est présent dans 2 listes différentes
-	return (find(vect1.begin(), vect1.end(), chiffre) != vect1.end() &&
-		find(vect2.begin(), vect2.end(), chiffre) != vect2.end());
-}
-
-void IA::avoirNote(int i, int j)
-{
-	for (int element : note[i][j]) {
-		std::cout << element << " ";
-	}
-	cout<< "" << endl;
-}
-
-vector<int> IA::avoirVecteurNote(int i, int j)
-{
-	vector<int> vecteurNote = {};
-	for (int element : note[i][j])
+	// Quand l'IA écrit un chiffre k dans une case i j 
+	// Elle doit mettre a jour ses notes
+	// Elle le fait de manière statégique
+	// il faut enlever tous les k note de la ligne i 
+	for (int b = 0; b < 9; b++)
 	{
-		vecteurNote.push_back(element);
+		if (estPresent(note[i][b], k))
+		{
+			retirerElementVecteur(k, note[i][b]);
+		}
 	}
-	return vecteurNote;
+
+	// il faut enlever tous les k note de la colonne j
+	for (int a = 0; a < 9; a++)
+	{
+		if (estPresent(note[a][j], k))
+		{
+			retirerElementVecteur(k, note[a][j]);
+		}
+	}
+	// il faut enlever tous les k note du carre de la case i j 
+	int a = i / 3;
+	int b = j / 3;
+	for (int n = 0 + a * 3; n < 3 + a * 3; n++)
+		for (int m = 0 + b * 3; m < 3 + b * 3; m++)
+		{
+			if (estPresent(note[n][m], k))
+			{
+				retirerElementVecteur(k, note[n][m]);
+			}
+		}
+	// Par sécurité, on vide entièrement le vecteur note de la case
+	note[i][j].clear();
 }
+
+// -------------- STRATEGIE N°1 --------------
 
 bool IA::singletonEvident(Sudoku& sudoku)
 {
@@ -242,56 +253,7 @@ bool IA::singletonEvident(Sudoku& sudoku)
 	return strategie;
 }
 
-void IA::mettreAJourNote(int k, int i, int j)
-{
-	// Quand l'IA écrit un chiffre k dans une case i j 
-	// Elle doit mettre a jour ses notes
-	// Elle le fait de manière statégique
-	// il faut enlever tous les k note de la ligne i 
-	for (int b = 0; b < 9; b++)
-	{
-		if (estPresent(note[i][b], k))
-		{
-			retirerElementVecteur(k, note[i][b]);
-		}
-	}
-
-	// il faut enlever tous les k note de la colonne j
-	for (int a = 0; a < 9; a++)
-	{
-		if (estPresent(note[a][j], k))
-		{
-			retirerElementVecteur(k, note[a][j]);
-		}
-	}
-	// il faut enlever tous les k note du carre de la case i j 
-	int a = i /3;
-	int b = j /3;
-	for (int n = 0 + a * 3; n < 3 + a * 3; n++)
-		for (int m = 0 + b * 3; m < 3 + b * 3; m++)
-		{
-			if (estPresent(note[n][m], k))
-			{
-				retirerElementVecteur(k, note[n][m]);
-			}
-		}
-	// Par sécurité, on vide entièrement le vecteur note de la case
-	note[i][j].clear();
-}
-
-bool IA::estPresent(vector<int>& vecteur, int k) 
-{
-	// Permet de verifier si un élément k est présent dans un vecteur
-	auto it = find(vecteur.begin(), vecteur.end(), k);
-	return it != vecteur.end(); 
-}
-
-void IA::voirNoteConsole(int i, int j)
-{
-	cout << "i : " << i << " - j : " << j << " --";
-	avoirNote(i, j);
-	cout << "----" << endl;
-}
+// -------------- STRATEGIE N°2 --------------
 
 bool IA::dernierChiffrePossibleLigne(Sudoku& sudoku)
 {
@@ -470,16 +432,8 @@ bool IA::dernierChiffrePossible(Sudoku& sudoku)
 
 	return strategie;
 }
-	
 
-void IA::actionIA(Sudoku& sudoku)
-{
-	//while (sudoku.avoirEtat() == false)
-	{
-		singletonEvident(sudoku);
-		dernierChiffrePossible(sudoku);
-	}
-}
+// -------------- STRATEGIE N°3 --------------
 
 bool IA::pairesNues(Sudoku& sudoku)
 {
@@ -651,7 +605,6 @@ bool IA::pairesNuesColonne(Sudoku& sudoku)
 	return false;
 }
 
-
 bool IA::pairesNuesCarre(Sudoku& sudoku)
 {
 	// on regarde les carrées
@@ -739,3 +692,52 @@ bool IA::pairesNuesCarre(Sudoku& sudoku)
 	return false;
 }
 
+// -------------- AUTRES PRATIQUES --------------
+
+void IA::avoirNote(int i, int j)
+{
+	for (int element : note[i][j]) {
+		std::cout << element << " ";
+	}
+	cout << "" << endl;
+}
+
+vector<int> IA::avoirVecteurNote(int i, int j)
+{
+	vector<int> vecteurNote = {};
+	for (int element : note[i][j])
+	{
+		vecteurNote.push_back(element);
+	}
+	return vecteurNote;
+}
+
+bool IA::chiffrePresentDansLesDeux(vector<int>& vect1, vector<int>& vect2, int chiffre)
+{
+	// Permet de savoir si un chiffre est présent dans 2 listes différentes
+	return (find(vect1.begin(), vect1.end(), chiffre) != vect1.end() &&
+		find(vect2.begin(), vect2.end(), chiffre) != vect2.end());
+}
+
+void IA::retirerElementVecteur(int k, vector<int>& vecteur)
+{
+	// Permet de retirer un élément k d'un vecteur
+	auto it = std::find(vecteur.begin(), vecteur.end(), k);
+	if (it != vecteur.end()) {
+		vecteur.erase(it);
+	}
+}
+
+bool IA::estPresent(vector<int>& vecteur, int k)
+{
+	// Permet de verifier si un élément k est présent dans un vecteur
+	auto it = find(vecteur.begin(), vecteur.end(), k);
+	return it != vecteur.end();
+}
+
+void IA::voirNoteConsole(int i, int j)
+{
+	cout << "i : " << i << " - j : " << j << " --";
+	avoirNote(i, j);
+	cout << "----" << endl;
+}

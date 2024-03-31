@@ -2,13 +2,9 @@
 
 int main()
 {
-    window.create(VideoMode(360, 800), "AIDOKU");
-    //Pour mettre en plein écran, attention pas encore possible de quitter la fenetre !
+    window.create(VideoMode(WIN_WIDTH, WIN_HEIGHT), "AIDOKU");
+    //Pour mettre en plein écran
     //RenderWindow window(sf::VideoMode::getFullscreenModes()[0], "Fenêtre en plein écran", sf::Style::Fullscreen);
-
-    if (!num1.loadFromFile("Images/num1.png")) {
-        return EXIT_FAILURE;
-    }
 
     mousePosition == window.mapPixelToCoords(Mouse::getPosition(window));
 
@@ -22,6 +18,7 @@ int main()
 
         window.clear(Color::White);
 
+        // On dessine sur le window l'interface du jeu
         grilleJeu.drawStatique(window);
         grilleJeu.drawBoutons(window);
 

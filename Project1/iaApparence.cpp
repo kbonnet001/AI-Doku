@@ -13,8 +13,12 @@ IaApparence::IaApparence()
     }
 }
 
+// ------------------- AFFICHAGES ------------------- 
+
 void IaApparence::afficherIA(RenderWindow& window)
 {
+    // Permet de dessiner l'IA (petit avatar)
+    // mais aussi de faire l'affichage du dialogue
     dessinerIa(window);
     configurationDialogue();
     window.draw(boiteDialogue);
@@ -24,6 +28,7 @@ void IaApparence::afficherIA(RenderWindow& window)
 
 bool IaApparence::loadVideo(string cheminVideo)
 {
+    // Pour load une vidéo
     if (!texture.loadFromFile(cheminVideo)) {
         std::cerr << "Erreur lors du chargement de l'animation GIF." << std::endl;
         return false; // Indique que le chargement a échoué
@@ -33,6 +38,8 @@ bool IaApparence::loadVideo(string cheminVideo)
 
 void IaApparence::dessinerIa(RenderWindow& window)
 {
+    // Permet de dessiner l'IA
+    // On charge la vidéo et on dessine un sprite
     loadVideo("Images/hello0.png");
     Sprite sprite(texture);
     sprite.setScale(dimensionSprite); 
@@ -43,6 +50,8 @@ void IaApparence::dessinerIa(RenderWindow& window)
 
 void IaApparence::configurationDialogue()
 {
+    // Configuration du dialogue
+    // -------------------------
     // Pour la boite de dialogue
     boiteDialogue.setFillColor(couleurTurquoiseClair);
     boiteDialogue.setOutlineColor(Color::Black);
@@ -53,6 +62,8 @@ void IaApparence::configurationDialogue()
     // Pour le texte
     ligneDialogue.ConfigurationTexte(15, dialogue[paragrapheActuel][ligneActuelle], Vector2f(155.f, 66.f));
 }
+
+// ------------------- NAVIGATION DANS LE DIALOGUE ------------------- 
 
 void IaApparence::ligneSuivante()
 {
@@ -82,16 +93,18 @@ void IaApparence::lignePrecedente()
 
 void IaApparence::paragrapheSuivant()
 {
-    if (etatDialogue != EtatDialogue::Initial)
+    if (etatDialogue != EtatDialogue::Initial && (finDialogue == false))
     {
         // Quand on clique, on veut accéder à la prochaine utilisation de stratégie
         cout << "dialogue.size() : " << dialogue.size()<<endl;
         ajouterTexte();
-        cout << "omg du texte a été ajouté" << endl;
+        cout << "du texte a été ajouté" << endl;
         cout << "dialogue.size() : " << dialogue.size() << endl;
+
+        ligneActuelle = 0;
+        paragrapheActuel += 1;
     }
-    ligneActuelle = 0;
-    paragrapheActuel += 1;
+
 }
 
 string IaApparence::formaterLigneTexte(string ligneTexte, int nbCaracMax, int nbLigneMax)
@@ -132,6 +145,8 @@ string IaApparence::formaterLigneTexte(string ligneTexte, int nbCaracMax, int nb
     return texteFormate;
 }
 
+// ------------------- AJOUT DES PHRASES ------------------- 
+
 void IaApparence::ajouterTexteInitial()
 {
     // Texte de base à mettre dans le dialogue de l'IA
@@ -168,7 +183,9 @@ void IaApparence::ajouterTexteNote(bool sansNote /*vector<int> positionCase*/)
     else
     {
         nouvelleLigne.push_back(formaterLigneTexte("On peut alors mettre à jour les notes."));
-        // explications complémentaires
+        // explications complémentaires (à faire ultérieuement en perspective du projet)
+        // En effet, il serait interessant de voir précisément dans quelles cases les notes ont été mises à jour
+        // ---
         //if (positionCase.size() < 13)
         //{
         //    ajouterLigne(formaterLigneTexte("Plus précisément, les notes ont changés dans les cases suivantes :"));
@@ -226,6 +243,32 @@ void IaApparence::ajouterTexteFinal()
     nouvelleLigne.push_back(formaterLigneTexte("J'espère avoir pu vous aider. À bientôt ! "));
     
     ajouterParagraphe(nouvelleLigne);
+
+    // Important
+    // On a ajouté ce texte, c'est la fin du dialogue avec l'IA
+    // On ne veut pas rentrer dans une boucle infini
+    // ie : pouvoir cliquer sur "suivant" encore et encore
+    // Et avoir tjs le meme texte qui se répète
+    finDialogue = true;
+}
+
+void IaApparence::ajouterTexteNiveauFaible()
+{
+    nouvelleLigne.clear();
+    nouvelleLigne.push_back(formaterLigneTexte("Mmmm... Je ne sais pas comment faire..."));
+    nouvelleLigne.push_back(formaterLigneTexte("Désolé, mais je ne peux pas t'aider davantage"));
+    nouvelleLigne.push_back(formaterLigneTexte("Je suis une jeune IA, j'ai encore beaucoup de choses à apprendre."));
+    nouvelleLigne.push_back(formaterLigneTexte("Donne moi une grille plus simple la prochaine fois s'il te plait."));
+    nouvelleLigne.push_back(formaterLigneTexte("Je ferai de mon mieux pour t'aider !"));
+
+    ajouterParagraphe(nouvelleLigne);
+
+    // Important
+    // On a ajouté ce texte, c'est la fin du dialogue avec l'IA
+    // On ne veut pas rentrer dans une boucle infini
+    // ie : pouvoir cliquer sur "suivant" encore et encore
+    // Et avoir tjs le meme texte qui se répète
+    finDialogue = true;
 }
 
 string IaApparence::avoirLigneDialogue(int& paragrapheActuel, int& ligneActuelle)
@@ -248,7 +291,7 @@ void IaApparence::ajouterParagraphe(const vector<string> nouveauParagraphe)
 void IaApparence::changerEtat(EtatDialogue nouvelleEtatDialogue)
 {
     etatDialogue = nouvelleEtatDialogue;
-    cout << "omg l'etat c'est : ";
+    //cout << "l'etat est : ";
 
     switch (nouvelleEtatDialogue) {
     case EtatDialogue::Initial:
@@ -269,8 +312,8 @@ void IaApparence::changerEtat(EtatDialogue nouvelleEtatDialogue)
     case EtatDialogue::Final:
         cout << "Final" << endl;
         break;
-    default:
-        cout << "Valeur inconnue" << endl;
+    default :
+        cout << "Niveau Faible" << endl;
     }
 }
 
@@ -301,6 +344,11 @@ void IaApparence::ajouterTexte()
     {
         cout << "ajouter paires nues" << endl;
         ajouterTexteFinal();
+    }
+    else // Niveau trop faible
+    {
+        cout << "ajouter niveau trop faible" << endl;
+        ajouterTexteNiveauFaible();
     }
 }
 

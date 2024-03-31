@@ -78,13 +78,11 @@ private:
 
     int valeurClique = 0; // Valeur mémoire du clique
 
-    int niveauGrille = 0;
+    int niveauGrille = 3;
     Sudoku sudoku = Sudoku(niveauGrille); // Si 0 demander
     IA Aidoku=IA(sudoku);
 
     IaApparence iaDesign=IaApparence();
-
-
 };
 
 #endif // GRILLE

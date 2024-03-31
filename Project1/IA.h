@@ -8,63 +8,63 @@
 
 
 #include "Sudoku.h"
-//#include "GestionDialogue.h"
 #include "IaApparence.h"
-
-// Include des objets de l'interface
 
 using namespace sf;
 using namespace std;
-//using erase;
+
 
 class IA
 {
 public:
 	IA(Sudoku& sudoku);
-	void changerActivation(bool nouvelleAct);
+	// -------------- RESOLUTIONS --------------
+	void resolution(Sudoku& sudoku);
+	EtatDialogue resolutionManuelle(Sudoku& sudoku);
+
+	// -------------- PRENDRE DES NOTES --------------
 	void prendreNote(Sudoku& sudoku, bool modeManuel);
-	void retirerElementVecteur(int k, vector<int>& vecteur);
 	vector<int> regarderLigne(Sudoku& sudoku, int i);
 	vector<int> regarderColonne(Sudoku& sudoku, int j);
 	vector<int> regarderCarre(Sudoku& sudoku, int i, int j);
-	vector<int> compareNotes(vector<int> note1, vector<int> note2);
-	bool chiffrePresentDansLesDeux(vector<int>& vect1, vector<int>& vect2, int chiffre);
-	void avoirNote(int i, int j);
-	bool singletonEvident(Sudoku& sudoku);
-	void mettreAJourNote(int k, int i, int j);
-	bool estPresent(vector<int>& vecteur, int k);
-	void voirNoteConsole(int i, int j);
-	vector<int> avoirVecteurNote(int i, int j);
 
-	// Stratégie n°2 : Dernier Chiffre Possible
+	// -------------- METTRE A JOUR LES NOTES --------------
+	vector<int> compareNotes(vector<int> note1, vector<int> note2);
+	void mettreAJourNote(int k, int i, int j);
+
+	// -------------- STRATEGIE N°1 --------------
+	bool singletonEvident(Sudoku& sudoku);
+
+	// -------------- STRATEGIE N°2 --------------
 	bool dernierChiffrePossible(Sudoku& sudoku);
 	bool dernierChiffrePossibleLigne(Sudoku& sudoku);
 	bool dernierChiffrePossibleColonne(Sudoku& sudoku);
 	bool dernierChiffrePossibleCarre(Sudoku& sudoku);
 
-	void actionIA(Sudoku& sudoku);
-
+	// -------------- STRATEGIE N°3 --------------
 	bool pairesNues(Sudoku& sudoku);
 	bool pairesNuesLigne(Sudoku& sudoku);
 	bool pairesNuesColonne(Sudoku& sudoku);
 	bool pairesNuesCarre(Sudoku& sudoku);
-	void resolution(Sudoku& sudoku);
-	EtatDialogue resolutionManuelle(Sudoku& sudoku);
 
+	// -------------- AUTRES PRATIQUES --------------
+
+	void changerActivation(bool nouvelleAct);
+	void retirerElementVecteur(int k, vector<int>& vecteur);
+	bool chiffrePresentDansLesDeux(vector<int>& vect1, vector<int>& vect2, int chiffre);
+	void avoirNote(int i, int j);	
+	bool estPresent(vector<int>& vecteur, int k);
+	void voirNoteConsole(int i, int j);
+	vector<int> avoirVecteurNote(int i, int j);
 
 private:
-	vector<int> note[9][9];
+	vector<int> note[9][9]; // chaque case contient un vecteur contenant les notes 
 	bool paireLigne[9][9]; // la case vaut true si une paire a déjà été identifiée
 	bool paireColonne[9][9]; // la case vaut true si une paire a déjà été identifiée
 	bool paireCarre[9][9]; // la case vaut true si une paire a déjà été identifiée
-	//Sudoku sudoku;
 	bool active; // si faux, pas d'IA
-	
-
-	//GestionDialogue gestionDialogueIa;
 
 	IaApparence iaApparence;
-
 };
 
 #endif // IA
