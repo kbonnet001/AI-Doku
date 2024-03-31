@@ -27,19 +27,23 @@ class Grille
 {
 public:
     Grille();
+    // --------------------------------------- DESSINER L'INTERFACE ---------------------------------------
     void drawStatique(RenderWindow& window);
     void drawBoutons(RenderWindow& window);
     void drawBoutonClose(RenderWindow& window);
     void drawGrilleJeu(RenderWindow& window);
     void drawBoutonNav(RenderWindow& window);
-    BoutonEcrire avoirBoutonEcrire(int i);
     void drawCase(RenderWindow& window);
+    void drawBoutonEffacer(RenderWindow& window);
+    void drawBoutonValider(RenderWindow& window);
+    BoutonEcrire avoirBoutonEcrire(int i);
+    
     void actionGrille(RenderWindow& window,const::Vector2f& mousePosition);
     void actionGrilleIA(RenderWindow& window, const::Vector2f& mousePosition);
     void actionGrilleManuelInitial(RenderWindow& window, const::Vector2f& mousePosition);
     void actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePosition);
-    void drawBoutonEffacer(RenderWindow& window);
-    void drawBoutonValider(RenderWindow& window);
+    bool reponseAutorise(int a, int b, string reponseUtilisateur);
+
     //void drawNotes(RenderWindow& window, Sudoku sudoku, int i, int j);
 
 private:
@@ -77,12 +81,21 @@ private:
     bool noteClique = false; // true si l'utilisateur a cliqué sur le bouton pour prendre des notes
 
     int valeurClique = 0; // Valeur mémoire du clique
+    
 
-    int niveauGrille = 3;
-    Sudoku sudoku = Sudoku(niveauGrille); // Si 0 demander
-    IA Aidoku=IA(sudoku);
 
-    IaApparence iaDesign=IaApparence();
+    // Paramètres de la grille
+    //------------------------
+    bool modeIA=false; // Faux par défaut, true si ia, false sinon --> dans ce cas, on affiche pas l'IA
+    bool resolutionRapide=false; // false si étape par étape, true l'IA résoud la grille d'un coup
+    int niveauGrille=0; // niv de la grille, si 0 grille a rentrer manuellement par l'utilisateur !
+
+
+
+
+    Sudoku sudoku = Sudoku(niveauGrille); // par défaut, mode manuel donc vide
+    IA Aidoku = IA(sudoku);
+    IaApparence iaDesign = IaApparence();
 };
 
 #endif // GRILLE

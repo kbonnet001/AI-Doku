@@ -13,7 +13,7 @@ using namespace sf;
 using namespace std;
 
 //// Prototypes
-Grille grilleJeu;
+//Grille grilleJeu;
 
 
 // Variables

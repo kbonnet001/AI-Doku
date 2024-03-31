@@ -2,8 +2,43 @@
 
 Grille::Grille()
 {
-	// si on est en mode auto --> resolution de la grille par l'IA avant tout affichage
-	if (niveauGrille!=0)
+	string reponse;
+	bool reponseOK = true;
+	do {
+		cout << "Voulez-vous utiliser l'IA ?\nOui = 1 || Non = 2 \nReponse : " << endl;
+		cin >> reponse;
+		reponseOK = reponseAutorise(1, 2, reponse);
+	} while (reponseOK == false);
+
+	if (reponse == "1")
+	{
+		modeIA = true;
+
+		do
+		{
+			cout << "\nChoisissez votre mode ?\nResolution rapide = 1 || Resolution detaillee == 2\nReponse : " << endl;
+			cin >> reponse;
+			reponseOK = reponseAutorise(1, 2, reponse);
+		} while (reponseOK == false);
+
+		if (reponse == "1")
+		{
+			resolutionRapide = true;
+		}
+	}
+	do
+	{
+		cout << "\nChoisissez votre niveau : 1 Facile --> 8 Difficile \n(Mettez 0 pour entrer votre propre grille)?\nReponse : " << endl;
+		cin >> reponse;
+		reponseOK = reponseAutorise(0, 8, reponse);
+	} while (reponseOK == false);
+
+	niveauGrille = stoi(reponse);
+	//niveauGrille = 0;
+	sudoku = Sudoku(niveauGrille);
+
+	//si on est en mode resoltion rapide --> resolution de la grille par l'IA avant tout affichage
+	if (niveauGrille!=0 && modeIA==true && resolutionRapide==true)
 	{
 		Aidoku.changerActivation(true);
 		Aidoku.resolution(sudoku);
@@ -13,7 +48,10 @@ Grille::Grille()
 void Grille::drawStatique(RenderWindow& window)
 {
 	// Permet de dessiner tous les éléments fixes de l'interface
-	iaDesign.afficherIA(window);
+	if (modeIA == true)
+	{
+		iaDesign.afficherIA(window);
+	}
 	drawGrilleJeu(window);
 	drawCase(window);
 	drawBoutonClose(window);
@@ -115,9 +153,8 @@ BoutonEcrire Grille::avoirBoutonEcrire(int i)
 
 void Grille::actionGrille(RenderWindow& window, const::Vector2f& mousePosition)
 {
-	if (niveauGrille == 0) // mode manuel
+	if (resolutionRapide==false && modeIA==true) // mode manuel avec IA
 	{	
-		// L'action grille est pour jouer en tant qu'utilisateur, ne fait pas intervenir d'IA
 		if (boutonValider.avoirClique() == false)
 		{
 			actionGrilleManuelInitial(window, mousePosition);
@@ -126,12 +163,14 @@ void Grille::actionGrille(RenderWindow& window, const::Vector2f& mousePosition)
 		{
 			actionGrilleManuel(window, mousePosition);
 		}
-		
-		
 	}
-	else // mode auto, test du niv de l'IA
+	else if (resolutionRapide==true && modeIA==true) // resolution rapide == true (faite tout en haut)
 	{
 		actionGrilleIA(window, mousePosition);
+	}
+	else // modeIA==false, on joue normalement
+	{
+		actionGrilleManuel(window, mousePosition);
 	}
 }
 
@@ -146,7 +185,6 @@ void Grille::actionGrilleIA(RenderWindow& window, const::Vector2f& mousePosition
 		// L'utilisateur a cliqué sur le bouton quitter pour fermer la page
 		boutonQuitter.actionClique(window);
 	}
-
 }
 
 void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePosition)
@@ -250,7 +288,6 @@ void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePo
 		boutonEffacer.changerClique(false);
 	}
 }
-
 
 void Grille::actionGrilleManuelInitial(RenderWindow& window, const::Vector2f& mousePosition)
 {
@@ -361,82 +398,19 @@ void Grille::actionGrilleManuelInitial(RenderWindow& window, const::Vector2f& mo
 	}
 }
 
-//void Grille::actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePosition)
-//{
-//	// L'action grille est pour jouer en tant qu'utilisateur, ne fait pas intervenir d'IA
-//
-//	// 1e cas : 
-//	// Un clique gauche a été effectué par l'utilisateur, on cherche à savoir quel bouton a été cliqué
-//	if (mousePosition.y > 580 && mousePosition.y < 622)
-//	{
-//		for (int i = 0; i < 9; i++)
-//		{
-//			// On a trouvé où on a cliqué
-//			if (nums[i].boutonClique(mousePosition) == true)
-//			{
-//				nums[i].changerClique(true);
-//				valeurClique = nums[i].avoirChiffre();
-//
-//				if (caseClique[0] != -1)
-//				{
-//					sudoku.ecrire(nums[i].avoirChiffre(), caseClique[0], caseClique[1]);
-//					//cases[caseClique[0]][caseClique[1]].ecrireValeurCase(nums[i].avoirChiffre());
-//				}
-//			}
-//
-//			else // on fait en sorte que les autres soit bien faux
-//				nums[i].changerClique(false);
-//			nums[i].actionClique(window); // On fait l'action du bouton
-//		}
-//	}
-//
-//	else if (mousePosition.y > 230 && mousePosition.y < 565)
-//	{
-//		// Si l'utilisateur a cliqué dans la grille de jeu, on va chercher à savoir dans quelle ligne : 
-//		for (int i = 0; i < 9; i++)
-//			// On cherche la ligne
-//			if ((mousePosition.y >= 235 + i * (33 + 3)) && (mousePosition.y <= 268 + i * (33 + 3)))
-//			{
-//				// On a trouvé la ligne, cherchons maintenant la case
-//				for (int j = 0; j < 9; j++)
-//				{
-//					if (cases[j][i].boutonClique(mousePosition))
-//					{
-//						// Retour ----------------
-//						cout << "cc je le carré " << i << j << endl;
-//						Aidoku.avoirNote(j, i);
-//						//------------------------
-//
-//						if (caseClique[0] != -1)// Si une case était cliquée avant, on la ré initialise
-//						{
-//							cases[caseClique[0]][caseClique[1]].changerCouleur(Color::White);
-//						}
-//
-//						// On remplace ensuite par la nouvelle case
-//						caseClique[0] = j;
-//						caseClique[1] = i;
-//						cases[caseClique[0]][caseClique[1]].changerCouleur(couleurTurquoiseClair);
-//						// lorsque l'on a trouvé le bouton sur lequel l'utilisateur à cliquer, plus besoin de continuer
-//						break;
-//					}
-//				}
-//			}
-//	}
-//
-//	else if (boutonQuitter.boutonClique(mousePosition))
-//	{
-//		// L'utilisateur a cliqué sur le bouton quitter pour fermer la page
-//		boutonQuitter.actionClique(window);
-//	}
-//	else // si on a cliqué nul part (pour le moment à corriger selon)
-//	{
-//		cout << "ola macarena" << endl;
-//		for (int i = 0; i < 9; i++)
-//		{
-//			nums[i].changerClique(false);
-//			nums[i].actionClique(window);
-//		}
-//		boutonEffacer.changerClique(false);
-//
-//	}
-//}
+bool Grille::reponseAutorise(int a, int b, string reponseUtilisateur)
+{
+	// Les réponses autorisées sont comprises entre a et b (inclus)
+	try {
+		int reponseInt = stoi(reponseUtilisateur);
+		}
+	catch (const invalid_argument& e) {
+		cout << "La chaine n'est pas un entier valide." << endl;
+		return false;
+		}
+	catch (const std::out_of_range& e) {
+		cout << "La chaine represente un entier en dehors de la plage valide." << endl;
+		return false;
+		}
+	return ((stoi(reponseUtilisateur) >= a && stoi(reponseUtilisateur) <= b));
+}

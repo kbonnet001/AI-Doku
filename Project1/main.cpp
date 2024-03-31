@@ -8,6 +8,8 @@ int main()
 
     mousePosition == window.mapPixelToCoords(Mouse::getPosition(window));
 
+    Grille grilleJeu = Grille();
+
     while (window.isOpen())
     {
         while (window.pollEvent(event))
