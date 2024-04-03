@@ -33,12 +33,12 @@ void BoutonEcrire::actionClique(RenderWindow& window)
     if (clique == false)
     {
         changerCouleur(Color::White, Color::Black);
-        std::cout << "Button i clicked. Value: " << chiffre << std::endl;
+        //std::cout << "Button i clicked. Value: " << chiffre << std::endl;
     }
     else // clique ==true
     {
         changerCouleur(couleurGris, Color::Black);
-        std::cout << "Button i clicked. Value: " << chiffre << std::endl;
+        //std::cout << "Button i clicked. Value: " << chiffre << std::endl;
     }
 }
 

@@ -56,7 +56,7 @@ void Grille::drawStatique(RenderWindow& window)
 	drawCase(window);
 	drawBoutonClose(window);
 
-	if (niveauGrille == 0) // mode manuel
+	if (resolutionRapide==false) // mode manuel
 	{
 		drawBoutonEffacer(window);
 		drawBoutonValider(window);
@@ -227,7 +227,7 @@ void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePo
 					if (cases[j][i].boutonClique(mousePosition))
 					{
 						// Retour ----------------
-						cout << "cc je le carré " << i << j << endl;
+						//cout << "cc je le carré " << i << j << endl;
 						Aidoku.avoirNote(j, i);
 						//------------------------
 
@@ -253,12 +253,23 @@ void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePo
 		boutonQuitter.actionClique(window);
 	}
 
+	else if (boutonEffacer.boutonClique(mousePosition) && modeIA==false)
+	{
+		// On a cliqué sur le bouton pour effacer
+		boutonEffacer.changerClique(true);
+
+		if (caseClique[0] != -1)
+		{
+			sudoku.ecrire(0, caseClique[0], caseClique[1]);
+		}
+	}
+
 	else if (boutonSuivant.boutonClique(mousePosition))
 	{
-		cout << "yayayaya" << endl;
+		//cout << "yayayaya" << endl;
 		if (iaDesign.savoirSiFinParagraphe() == true )
 		{
-			cout << "omg on est là" << endl;
+			//cout << "omg on est là" << endl;
 			// On est à la fin du paragraphe
 			// Avant de passer à la ligne suivante
 			// ie : le paragraphe suivant qui n'existe pas encore
@@ -279,7 +290,6 @@ void Grille :: actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePo
 
 	else // si on a cliqué nul part (pour le moment à corriger selon)
 	{
-		cout << "ola macarena" << endl;
 		for (int i = 0; i < 9; i++)
 		{
 			nums[i].changerClique(false);
@@ -329,7 +339,7 @@ void Grille::actionGrilleManuelInitial(RenderWindow& window, const::Vector2f& mo
 					if (cases[j][i].boutonClique(mousePosition))
 					{
 						// Retour ----------------
-						cout << "cc je le carré " << i << j << endl;
+						//cout << "cc je le carré " << i << j << endl;
 						Aidoku.avoirNote(j, i);
 						//------------------------
 
@@ -362,31 +372,28 @@ void Grille::actionGrilleManuelInitial(RenderWindow& window, const::Vector2f& mo
 
 	else if (boutonValider.boutonClique(mousePosition))
 	{
+		boutonValider.changerClique(true);
+
+		// On fait des changements au niveau de la grille
+		sudoku.creerJeuInitial();
+		for (int i = 0; i < 9; i++)
+			for (int j = 0; j < 9; j++)
+			{
+				cases[i][j].changerCouleurTexte(Color::Black);
+			}
+
+		// On fait des changements avec l'IA
+
+		// 1e étape de résolution par l'IA
+		// iaDesign.avoirGestionDialogue().ajouterTexteNote(true);
+		Aidoku.prendreNote(sudoku, true);
+
+		iaDesign.changerEtat(EtatDialogue::Note);
+		//iaDesign.ajouterTexte();
+
+		// --> Doit passer au prochain paragraphe
+		iaDesign.paragrapheSuivant();
 		// si on est bien dans le cas d'un niveau manuel et que l'on n'a pas encore validé
-		if (niveauGrille == 0)
-		{
-			boutonValider.changerClique(true);
-
-			// On fait des changements au niveau de la grille
-			sudoku.creerJeuInitial();
-			for (int i = 0; i < 9; i++)
-				for (int j = 0; j < 9; j++)
-				{
-					cases[i][j].changerCouleurTexte(Color::Black);
-				}
-
-			// On fait des changements avec l'IA
-
-			// 1e étape de résolution par l'IA
-			// iaDesign.avoirGestionDialogue().ajouterTexteNote(true);
-			Aidoku.prendreNote(sudoku, true);
-
-			iaDesign.changerEtat(EtatDialogue::Note);
-			//iaDesign.ajouterTexte();
-			
-			// --> Doit passer au prochain paragraphe
-			iaDesign.paragrapheSuivant();
-		}
 	}
 	else if (boutonSuivant.boutonClique(mousePosition))
 	{

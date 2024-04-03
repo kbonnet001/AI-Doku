@@ -71,12 +71,12 @@ void IaApparence::ligneSuivante()
     if (ligneActuelle < dialogue[paragrapheActuel].size() - 1)
     {
         ++ligneActuelle;
-        cout << "ligne Actuelle : " << ligneActuelle << " dialogue[paragrapheActuel].size()" << dialogue[paragrapheActuel].size() - 1 << endl;
+        //cout << "ligne Actuelle : " << ligneActuelle << " dialogue[paragrapheActuel].size()" << dialogue[paragrapheActuel].size() - 1 << endl;
 
     }
     else if (ligneActuelle == dialogue[paragrapheActuel].size()-1 && etatDialogue!=EtatDialogue::Initial)
     {
-        cout << "égalité youpi" << endl;
+        //cout << "égalité youpi" << endl;
         // on est à la dernière ligne du paragraphe, il faut changer de paragraphe
         paragrapheSuivant();
     }
@@ -96,10 +96,10 @@ void IaApparence::paragrapheSuivant()
     if (etatDialogue != EtatDialogue::Initial && (finDialogue == false))
     {
         // Quand on clique, on veut accéder à la prochaine utilisation de stratégie
-        cout << "dialogue.size() : " << dialogue.size()<<endl;
+        //cout << "dialogue.size() : " << dialogue.size()<<endl;
         ajouterTexte();
-        cout << "du texte a été ajouté" << endl;
-        cout << "dialogue.size() : " << dialogue.size() << endl;
+        //cout << "du texte a été ajouté" << endl;
+        //cout << "dialogue.size() : " << dialogue.size() << endl;
 
         ligneActuelle = 0;
         paragrapheActuel += 1;
@@ -278,9 +278,9 @@ string IaApparence::avoirLigneDialogue(int& paragrapheActuel, int& ligneActuelle
 
 void IaApparence::affichageTest(int& paragrapheActuel, int& ligneActuelle)
 {
-    cout << "paragraphe : " << paragrapheActuel << endl;
-    cout << "ligne actuelle : " << ligneActuelle << endl;
-    cout << "dialogue size : " << dialogue.size() << endl;
+    //cout << "paragraphe : " << paragrapheActuel << endl;
+    //cout << "ligne actuelle : " << ligneActuelle << endl;
+    //cout << "dialogue size : " << dialogue.size() << endl;
 }
 
 void IaApparence::ajouterParagraphe(const vector<string> nouveauParagraphe)
@@ -291,7 +291,7 @@ void IaApparence::ajouterParagraphe(const vector<string> nouveauParagraphe)
 void IaApparence::changerEtat(EtatDialogue nouvelleEtatDialogue)
 {
     etatDialogue = nouvelleEtatDialogue;
-    //cout << "l'etat est : ";
+    cout << "l'etat est : ";
 
     switch (nouvelleEtatDialogue) {
     case EtatDialogue::Initial:
@@ -327,33 +327,33 @@ void IaApparence::ajouterTexte()
     }
     else if (etatDialogue == EtatDialogue::SingletonEvident)
     {
-        cout << "ajouter texte singleton evident" << endl;
+        //cout << "ajouter texte singleton evident" << endl;
         ajouterTexteSingletonEvident();
     }
     else if (etatDialogue == EtatDialogue::DernierChiffrePossible)
     {
-        cout << "ajouter dernier chiffre possible" << endl;
+        //cout << "ajouter dernier chiffre possible" << endl;
         ajouterTexteDernierChiffrePossible();
     }
     else if (etatDialogue== EtatDialogue::PairesNues)
     {
-        cout << "ajouter paires nues" << endl;
+        //cout << "ajouter paires nues" << endl;
         ajouterTextePairesNues();
     }
     else if (etatDialogue == EtatDialogue::Final)
     {
-        cout << "ajouter paires nues" << endl;
+        //cout << "ajouter paires nues" << endl;
         ajouterTexteFinal();
     }
     else // Niveau trop faible
     {
-        cout << "ajouter niveau trop faible" << endl;
+        //cout << "ajouter niveau trop faible" << endl;
         ajouterTexteNiveauFaible();
     }
 }
 
 bool IaApparence :: savoirSiFinParagraphe()
 {
-    cout << "ligne Actuelle : " << ligneActuelle +1 << " dialogue[paragrapheActuel].size()" << dialogue[paragrapheActuel].size()-1 << endl;
+    //cout << "ligne Actuelle : " << ligneActuelle +1 << " dialogue[paragrapheActuel].size()" << dialogue[paragrapheActuel].size()-1 << endl;
     return (ligneActuelle == dialogue[paragrapheActuel].size() - 1);
 }

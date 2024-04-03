@@ -6,7 +6,6 @@
 
 // Includes Header
 #include "BoutonEcrire.h"
-#include "Texte.h"
 
 using namespace sf;
 using namespace std;

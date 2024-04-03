@@ -6,7 +6,6 @@
 
 // Includes
 #include "bouton.h" // héritage
-#include "Texte.h"
 
 class BoutonValider : public Bouton
 {

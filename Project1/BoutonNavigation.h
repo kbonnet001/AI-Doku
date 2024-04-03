@@ -6,7 +6,6 @@
 
 // Include Hearder
 #include "bouton.h" // héritage
-#include "Texte.h"
 #include "GestionDialogue.h"
 #include "IaApparence.h"
 

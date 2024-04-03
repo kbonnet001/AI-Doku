@@ -6,7 +6,6 @@
 
 // Include Hearder
 #include "bouton.h" // héritage
-#include "Texte.h"
 
 class BoutonClose : public Bouton
 {

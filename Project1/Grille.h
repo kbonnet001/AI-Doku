@@ -44,8 +44,6 @@ public:
     void actionGrilleManuel(RenderWindow& window, const::Vector2f& mousePosition);
     bool reponseAutorise(int a, int b, string reponseUtilisateur);
 
-    //void drawNotes(RenderWindow& window, Sudoku sudoku, int i, int j);
-
 private:
     
     // Carre gris contour noir - On range dans un tableau 3x3
