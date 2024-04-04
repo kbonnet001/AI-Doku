@@ -208,7 +208,7 @@ void IaApparence::ajouterTexteNote(bool sansNote /*vector<int> positionCase*/)
 void IaApparence::ajouterTexteSingletonEvident()
 {
     nouvelleLigne.clear();
-    nouvelleLigne.push_back(formaterLigneTexte("Grâce à ces notes, ont peut ensuite écrire les chiffres des singletons évidents"));
+    nouvelleLigne.push_back(formaterLigneTexte("Grâce à ces notes, on peut ensuite écrire les chiffres des singletons évidents"));
     nouvelleLigne.push_back(formaterLigneTexte("On met alors les notes à jour."));
 
     ajouterParagraphe(nouvelleLigne);
@@ -228,7 +228,7 @@ void IaApparence::ajouterTexteDernierChiffrePossible()
 void IaApparence::ajouterTextePairesNues()
 {
     nouvelleLigne.clear();
-    nouvelleLigne.push_back(formaterLigneTexte("On peut ensuite des paires nues."));
+    nouvelleLigne.push_back(formaterLigneTexte("On peut ensuite la stratégie des paires nues."));
     nouvelleLigne.push_back(formaterLigneTexte("Si on remarque deux paires identiques dans une ligne (colonne ou carré)."));
     nouvelleLigne.push_back(formaterLigneTexte("Alors on peut supprimer tous les autres chiffres contenues dans les mêmes cases que les paires."));
     nouvelleLigne.push_back(formaterLigneTexte("Cette méthode ne permet pas d'écrire de chiffre mais elle nous sera bien utile pour la suite !"));

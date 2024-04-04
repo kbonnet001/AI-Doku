@@ -76,9 +76,9 @@
     <PublicIncludeDirectories>C:\Users\boklo\OneDrive\Documents\P2I\AI-Doku2\Project1\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\boklo\OneDrive\Documents\P2I\Git2\aled\Project1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\boklo\OneDrive\Documents\P2I\Git2\aled\Project1\lib;$(LibraryPath)</LibraryPath>
-    <PublicIncludeDirectories>C:\Users\boklo\OneDrive\Documents\P2I\Git2\aled\Project1\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <IncludePath>C:\Users\boklo\OneDrive\Documents\P2I\AI-Doku2\Project1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\boklo\OneDrive\Documents\P2I\AI-Doku2\Project1</LibraryPath>
+    <PublicIncludeDirectories>C:\Users\boklo\OneDrive\Documents\P2I\AI-Doku2\Project1\include</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -135,7 +135,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-main-d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
