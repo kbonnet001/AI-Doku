@@ -26,12 +26,25 @@ Grille::Grille()
 			resolutionRapide = true;
 		}
 	}
-	do
+	if (modeIA == true && resolutionRapide == true)
 	{
-		cout << "\nChoisissez votre niveau : 1 Facile --> 8 Difficile \n(Mettez 0 pour entrer votre propre grille)?\nReponse : " << endl;
-		cin >> reponse;
-		reponseOK = reponseAutorise(0, 8, reponse);
-	} while (reponseOK == false);
+		do
+		{
+			cout << "\nChoisissez votre niveau : 1 Facile --> 8 Difficile \nReponse : " << endl;
+			cin >> reponse;
+			reponseOK = reponseAutorise(1, 8, reponse);
+		} while (reponseOK == false);
+	}
+	else
+	{
+		do
+		{
+			cout << "\nChoisissez votre niveau : 1 Facile --> 8 Difficile \n(Mettez 0 pour entrer votre propre grille)?\nReponse : " << endl;
+			cin >> reponse;
+			reponseOK = reponseAutorise(0, 8, reponse);
+		} while (reponseOK == false);
+	}
+
 
 	niveauGrille = stoi(reponse);
 	//niveauGrille = 0;
@@ -56,11 +69,14 @@ void Grille::drawStatique(RenderWindow& window)
 	drawCase(window);
 	drawBoutonClose(window);
 
-	if (resolutionRapide==false) // mode manuel
+	if (resolutionRapide==false ) // mode manuel
 	{
 		drawBoutonEffacer(window);
-		drawBoutonValider(window);
-		drawBoutonNav(window);
+		if (modeIA == true)
+		{
+			drawBoutonNav(window);
+			drawBoutonValider(window);
+		}
 	}
 }
 
